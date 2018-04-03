@@ -1,0 +1,65 @@
+﻿body {
+    background-image: url(Images/Produce.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#loginTitle {
+    font-size: 30px;
+    font: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+#spanPwd, #spanUid {
+    font-weight: bold;
+    font-size: 20px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+form {
+    border-color: lightgray;
+    max-width: 480px;
+    position: center;
+}
+
+#loginDiv, #createAccDiv {
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 1px solid #000;
+    background-color: floralwhite;
+    opacity: .92;
+    border-radius: 25px;
+    padding: 20px;
+}
+
+#loginImage {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#loginButton, #createButton {
+    background-color: saddlebrown;
+    color: white;
+    padding: 14px 14px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    font-size: 15px;
+}
+
+.Textbox {
+    height: 30px;
+    width: 390px;
+    font-size: medium;
+    border-radius: 10px;
+    border: solid 1px black;
+    padding: 5px;
+}
