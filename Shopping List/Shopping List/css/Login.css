@@ -1,6 +1,6 @@
 ﻿body {
-    background-image: url(/Images/Produce.jpg);
-    background-repeat: no-repeat;
+    background-image: url(/Images/paperbackground.png);
+    background-repeat: repeat;
     background-size: cover;
 }
 

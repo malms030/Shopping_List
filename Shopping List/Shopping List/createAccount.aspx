@@ -53,7 +53,7 @@
         <asp:label runat="server" ID="labelLogin" />
             <b id="loginTitle">Create an Account</b>
             <br />
-                    <img src="images/bag.png" alt="Bag" id="loginImage"/>
+                    
 
             <span id="spanFname">First Name</span>
             <asp:TextBox runat="server" ID="fName" placeholder="Enter First Name" required="required" CssClass="Textbox" />
@@ -71,6 +71,7 @@
             <asp:TextBox runat="server" ID="createUid" placeholder="Enter Username" required="required" CssClass="Textbox" />
             <asp:label runat="server" ID="error" Text=" " />
             <br />
+            <br />
             <span id="spanPwd">Create a Password</span>
             <asp:TextBox runat="server" ID="createUPwd" placeholder="Enter Password" required="required" TextMode="Password" CssClass="Textbox" />
             <br />
@@ -78,6 +79,7 @@
             <span id="spanPwd2">Confirm Password</span>
             <asp:TextBox runat="server" ID="confirmPWD" placeholder="Confirm Password" required="required" TextMode="Password" CssClass="Textbox" />
             <asp:label runat="server" ID="error2" Text=" " />
+            <br />
             <br />
             <asp:Button runat="server" ID="createButton" Text="Create Account" onClick="logInButton_Click"/>
             <br />
