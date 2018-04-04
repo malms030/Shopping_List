@@ -4,6 +4,25 @@
 
 <script runat="server">
 
+    protected void loginButton_Click(object sender, EventArgs e)
+    {
+        System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+        string sqlstmt = "select * from users where username like '"+Uid.Text +"' and password like '"+UPwd.Text+"';";
+        System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlstmt, sqlConnStr);
+        cmd.Connection.Open();
+        System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
+
+        if (reader.Read())
+        {
+            Response.Redirect("List.aspx");
+        }
+        else
+        {
+            Uid.BorderColor = System.Drawing.Color.Red;
+            UPwd.BorderColor = System.Drawing.Color.Red;
+        }
+        cmd.Connection.Close();
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,7 +49,7 @@
             <asp:TextBox runat="server" ID="UPwd" placeholder="Enter Password" required="required" CssClass="Textbox" />
             <br />
             <br />
-            <asp:Button runat="server" ID="loginButton" Text="Log In" />
+            <asp:Button runat="server" ID="loginButton" OnClick="loginButton_Click" Text="Log In" />
             <br />
             <br />
             <br />
