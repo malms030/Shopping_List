@@ -46,7 +46,7 @@
             <br />
             <span id="spanPwd">Password</span>
             <br />
-            <asp:TextBox runat="server" ID="UPwd" placeholder="Enter Password" required="required" CssClass="Textbox" />
+            <asp:TextBox runat="server" ID="UPwd" placeholder="Enter Password" TextMode="Password" required="required" CssClass="Textbox" />
             <br />
             <br />
             <asp:Button runat="server" ID="loginButton" OnClick="loginButton_Click" Text="Log In" />
