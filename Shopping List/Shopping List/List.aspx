@@ -4,6 +4,10 @@
 
 <script runat="server">
 
+    protected void settingsBtn_Click(object sender, ImageClickEventArgs e)
+    {
+
+    }
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,7 +17,13 @@
 </head>
 <body>
     <form id="form1" runat="server">
+       <div id="icons">
+           <asp:ImageButton ID="settingsBtn" ImageUrl="Images/settings.png" OnClick="settingsBtn_Click" runat="server" />
+            <br />
+       </div>
+        
         <div id="freqitems">
+            
             <asp:label runat="server" ID="labelfreqitems"/>
             <b id="freqitemsTitle">Frequent Items</b>
             <br />

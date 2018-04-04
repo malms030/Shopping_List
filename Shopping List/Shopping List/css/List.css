@@ -47,3 +47,13 @@
     text-decoration: none;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
+#icons {
+    width: 400px;
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+#settingsBtn{
+    width : 15%;
+    height:15%;
+}
