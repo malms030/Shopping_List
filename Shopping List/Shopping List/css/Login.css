@@ -18,6 +18,7 @@ table, th, td {
     font-weight: bold;
     font-size: 18px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    
 }
 
 form {
@@ -63,5 +64,10 @@ form {
     font-size: medium;
     border-radius: 10px;
     border: solid 1px black;
-    padding: 5px;
+    padding: 3px;
+    
+}
+#error, #error2 {
+    color: red;
+    
 }

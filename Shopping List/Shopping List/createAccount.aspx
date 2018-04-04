@@ -5,24 +5,38 @@
 <script runat="server">
     protected void logInButton_Click(object sender, EventArgs e)
     {
-        if (createUPwd.Text == confirmPWD.Text)
+        try
         {
-            System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-            string sqlinsert = "insert into users(username,password) values (@uid, @pwd)";
-            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
-            cmd.Parameters.Add("@uid", System.Data.SqlDbType.VarChar, 50);
-            cmd.Parameters["@uid"].Value = createUid.Text;
-            cmd.Parameters.Add("@pwd", System.Data.SqlDbType.VarChar, 50);
-            cmd.Parameters["@pwd"].Value = confirmPWD.Text;
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            Response.Redirect("Login.aspx");
-            cmd.Connection.Close();
+            if (createUPwd.Text == confirmPWD.Text)
+            {
+                System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                string sqlinsert = "insert into users(username, firstname, lastname, email,password) values (@uid, @fname, @lname, @email, @pwd)";
+                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+                cmd.Parameters.Add("@uid", System.Data.SqlDbType.VarChar, 50);
+                cmd.Parameters["@uid"].Value = createUid.Text;
+                cmd.Parameters.Add("@pwd", System.Data.SqlDbType.VarChar, 50);
+                cmd.Parameters["@pwd"].Value = confirmPWD.Text;
+                cmd.Parameters.Add("@fname", System.Data.SqlDbType.VarChar, 50);
+                cmd.Parameters["@fname"].Value = fName.Text;
+                cmd.Parameters.Add("@lname", System.Data.SqlDbType.VarChar, 50);
+                cmd.Parameters["@lname"].Value = lName.Text;
+                cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar, 50);
+                cmd.Parameters["@email"].Value = email.Text;
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                Response.Redirect("Login.aspx");
+                cmd.Connection.Close();
+            }
+            else
+            {
+                createUPwd.BorderColor = System.Drawing.Color.Red;
+                confirmPWD.BorderColor = System.Drawing.Color.Red;
+                error2.Text = "Passwords do not match";
+            }
         }
-        else
-        {
-            createUPwd.BorderColor = System.Drawing.Color.Red;
-            confirmPWD.BorderColor = System.Drawing.Color.Red;
+        catch (System.Data.SqlClient.SqlException ex){
+            error.Text = "Username is aready in use :(";
+            createUid.BorderColor = System.Drawing.Color.Red;
         }
     }
 </script>
@@ -36,34 +50,34 @@
     <div id="createAccDiv">
 
     <form id="form1" runat="server">
-        <asp:label runat="server" ID="labelLogin">
+        <asp:label runat="server" ID="labelLogin" />
             <b id="loginTitle">Create an Account</b>
             <br />
                     <img src="images/bag.png" alt="Bag" id="loginImage"/>
-            <br />
+
             <span id="spanFname">First Name</span>
-            <br />
             <asp:TextBox runat="server" ID="fName" placeholder="Enter First Name" required="required" CssClass="Textbox" />
             <br />
-            <span id="spanLname">Last Name</span>
             <br />
+            <span id="spanLname">Last Name</span>
             <asp:TextBox runat="server" ID="lName" placeholder="Enter Last Name" required="required" CssClass="Textbox" />
             <br />
-            <span id="spanEmail">Email</span>
             <br />
+            <span id="spanEmail">Email</span>
             <asp:TextBox runat="server" ID="email" placeholder="Enter Email" required="required" CssClass="Textbox" />
             <br />
-            <span id="spanUid">Create a Username</span>
             <br />
+            <span id="spanUid">Create a Username</span>
             <asp:TextBox runat="server" ID="createUid" placeholder="Enter Username" required="required" CssClass="Textbox" />
+            <asp:label runat="server" ID="error" Text=" " />
             <br />
             <span id="spanPwd">Create a Password</span>
-            <br />
             <asp:TextBox runat="server" ID="createUPwd" placeholder="Enter Password" required="required" TextMode="Password" CssClass="Textbox" />
             <br />
-            <span id="spanPwd2">Confirm Password</span>
             <br />
+            <span id="spanPwd2">Confirm Password</span>
             <asp:TextBox runat="server" ID="confirmPWD" placeholder="Confirm Password" required="required" TextMode="Password" CssClass="Textbox" />
+            <asp:label runat="server" ID="error2" Text=" " />
             <br />
             <asp:Button runat="server" ID="createButton" Text="Create Account" onClick="logInButton_Click"/>
             <br />

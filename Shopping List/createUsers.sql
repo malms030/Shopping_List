@@ -1,9 +1,8 @@
-﻿DROP TABLE Users;
-CREATE TABLE Users(
-username VARCHAR(50) PRIMARY KEY ,
-password VARCHAR(50) NOT null);
+﻿DROP TABLE users;
 
-
-SELECT * FROM users;
-
-SELECT * FROM users WHERE username LIKE 'test1' AND password LIKE '123';
+CREATE TABLE users(
+username VARCHAR(50) PRIMARY KEY,
+firstname VARCHAR(50),
+lastname VARCHAR(50),
+email VARCHAR(50) NOT NULL,
+password VARCHAR(50) NOT NULL);
