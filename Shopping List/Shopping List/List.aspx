@@ -21,9 +21,15 @@
         <br/>
         <div id="list_items">
             <asp:label runat="server" ID="labellistitems"/>
-            <b id="itemsTitle">Your Shopping List</b>
+            <b id="itemsTitle">My Shopping List</b>
             <br />
         </div>
+        <br />
+        <br />
+        <div id="options">
+            <asp:LinkButton runat="server" ID="signoutButton" Text="Sign Out" PostBackURL="Login.aspx" />
+        </div>
+            
     </form>
 </body>
 </html>
