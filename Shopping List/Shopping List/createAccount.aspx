@@ -53,7 +53,6 @@
         <asp:label runat="server" ID="labelLogin" />
             <b id="loginTitle">Create an Account</b>
             <br />
-                    
 
             <span id="spanFname">First Name</span>
             <asp:TextBox runat="server" ID="fName" placeholder="Enter First Name" required="required" CssClass="Textbox" />
