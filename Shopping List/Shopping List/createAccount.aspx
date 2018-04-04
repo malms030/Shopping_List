@@ -16,7 +16,7 @@
             cmd.Parameters["@pwd"].Value = confirmPWD.Text;
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
-            Response.Redirect("Default.aspx");
+            Response.Redirect("Login.aspx");
             cmd.Connection.Close();
         }
         else
@@ -41,20 +41,29 @@
             <br />
                     <img src="images/bag.png" alt="Bag" id="loginImage"/>
             <br />
+            <span id="spanFname">First Name</span>
+            <br />
+            <asp:TextBox runat="server" ID="fName" placeholder="Enter First Name" required="required" CssClass="Textbox" />
+            <br />
+            <span id="spanLname">Last Name</span>
+            <br />
+            <asp:TextBox runat="server" ID="lName" placeholder="Enter Last Name" required="required" CssClass="Textbox" />
+            <br />
+            <span id="spanEmail">Email</span>
+            <br />
+            <asp:TextBox runat="server" ID="email" placeholder="Enter Email" required="required" CssClass="Textbox" />
+            <br />
             <span id="spanUid">Create a Username</span>
             <br />
             <asp:TextBox runat="server" ID="createUid" placeholder="Enter Username" required="required" CssClass="Textbox" />
-            <br />
             <br />
             <span id="spanPwd">Create a Password</span>
             <br />
             <asp:TextBox runat="server" ID="createUPwd" placeholder="Enter Password" required="required" TextMode="Password" CssClass="Textbox" />
             <br />
-            <br />
             <span id="spanPwd2">Confirm Password</span>
             <br />
             <asp:TextBox runat="server" ID="confirmPWD" placeholder="Confirm Password" required="required" TextMode="Password" CssClass="Textbox" />
-            <br />
             <br />
             <asp:Button runat="server" ID="createButton" Text="Create Account" onClick="logInButton_Click"/>
             <br />

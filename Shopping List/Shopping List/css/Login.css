@@ -5,7 +5,7 @@
 }
 
 #loginTitle {
-    font-size: 30px;
+    font-size: 28px;
     font: bold;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -14,9 +14,9 @@ table, th, td {
     border: 1px solid black;
 }
 
-#spanPwd, #spanUid, #spanPwd2 {
+#spanPwd, #spanUid, #spanPwd2, #spanFname, #spanLname, #spanEmail {
     font-weight: bold;
-    font-size: 20px;
+    font-size: 18px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
@@ -35,7 +35,7 @@ form {
     opacity: .92;
     border-radius: 25px;
     padding: 20px;
-    text-decoration:none;
+    
 }
 
 #loginImage {
