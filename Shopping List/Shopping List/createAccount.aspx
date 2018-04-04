@@ -61,7 +61,7 @@
             <br />
             <br />
             <span>Already a registered user? </span>
-            <asp:LinkButton runat="server" ID="logInButton" Text="Login" PostBackURL="Default.aspx" />
+            <asp:LinkButton runat="server" ID="logInButton" Text="Login" PostBackURL="Login.aspx" />
         </asp:label>
     </form>
     </div>
