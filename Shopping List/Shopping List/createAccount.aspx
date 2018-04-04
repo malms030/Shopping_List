@@ -30,7 +30,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Shopping List Create Account</title>
-     <link rel="stylesheet" type="text/css" href="Login.css"/>
+     <link rel="stylesheet" type="text/css" href="css/Login.css"/>
 </head>
 <body>
     <div id="createAccDiv">
