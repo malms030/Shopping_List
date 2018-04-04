@@ -7,8 +7,17 @@
     {
         if (createUPwd.Text == confirmPWD.Text)
         {
-            //add to db
+            System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+            string sqlinsert = "insert into users(username,password) values (@uid, @pwd)";
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+            cmd.Parameters.Add("@uid", System.Data.SqlDbType.VarChar, 50);
+            cmd.Parameters["@uid"].Value = createUid.Text;
+            cmd.Parameters.Add("@pwd", System.Data.SqlDbType.VarChar, 50);
+            cmd.Parameters["@pwd"].Value = confirmPWD.Text;
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
             Response.Redirect("Default.aspx");
+            cmd.Connection.Close();
         }
         else
         {
