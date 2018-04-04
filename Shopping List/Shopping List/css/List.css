@@ -54,6 +54,21 @@
     
 }
 #settingsBtn{
-    width : 15%;
-    height:15%;
+    width : 10%;
+    height:10%;
+    float:left;
+    display:block;
+}
+#loginImage {
+    width: 25%;
+    height: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+#userBtn {
+    width: 15%;
+    height: 15%;
+    margin-left: auto;
+    display: block;
 }

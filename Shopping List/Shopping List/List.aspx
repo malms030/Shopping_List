@@ -19,7 +19,11 @@
     <form id="form1" runat="server">
        <div id="icons">
            <asp:ImageButton ID="settingsBtn" ImageUrl="Images/settings.png" OnClick="settingsBtn_Click" runat="server" />
+           <img src="images/bag.png" alt="Bag" id="loginImage"/>
+           <asp:ImageButton ID="userBtn" ImageUrl="Images/usericon.png" OnClick="settingsBtn_Click" runat="server" />
             <br />
+           <br />
+
        </div>
         
         <div id="freqitems">
