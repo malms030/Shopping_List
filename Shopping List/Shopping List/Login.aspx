@@ -20,6 +20,7 @@
         {
             Uid.BorderColor = System.Drawing.Color.Red;
             UPwd.BorderColor = System.Drawing.Color.Red;
+            errorlogin.Text = "Username or password invalid";
         }
         cmd.Connection.Close();
     }
@@ -48,6 +49,7 @@
             <br />
             <asp:TextBox runat="server" ID="UPwd" placeholder="Enter Password" TextMode="Password" required="required" CssClass="Textbox" />
             <br />
+            <asp:label runat="server" ID="errorlogin" Text=" " />
             <br />
             <asp:Button runat="server" ID="loginButton" OnClick="loginButton_Click" Text="Log In" />
             <br />

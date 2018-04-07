@@ -67,7 +67,9 @@ form {
     padding: 3px;
     
 }
-#error, #error2 {
+#error, #error2, #errorlogin {
     color: red;
-    
+}
+#createAccountButton, #logInButton {
+    text-decoration: none;
 }
