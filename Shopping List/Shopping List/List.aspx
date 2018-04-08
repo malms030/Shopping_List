@@ -17,7 +17,7 @@
                 {
                     string userid = Request.Cookies["UserID"].Value;
                     System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-                    string sqlremove = "DELETE FROM list_items WHERE id = @id AND item_name LIKE '%@name%';";
+                    string sqlremove = "DELETE FROM list_items WHERE id = @id AND item_name = @name;";
                     System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlremove, sqlConnStr);
                     cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
                     cmd.Parameters["@id"].Value = userid;
