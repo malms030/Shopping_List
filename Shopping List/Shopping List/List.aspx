@@ -154,6 +154,8 @@
         <br />
         <br />
         <div id="options">
+            <a href="storeLocator.html" style="text-decoration: none; font-family: Lucida Sans Unicode Lucida Grande, sans-serif;" >Store Locator</a>
+            <br />
             <asp:LinkButton runat="server" ID="signoutButton" Text="Sign Out" PostBackURL="Login.aspx" />
         </div>
             

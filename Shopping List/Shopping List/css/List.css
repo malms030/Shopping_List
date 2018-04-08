@@ -43,7 +43,7 @@
     text-align: center;
    
 }
-#signoutButton {
+#signoutButton, #backButton, #storeLocatorButton {
     text-decoration: none;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
@@ -111,3 +111,11 @@
     font-size: 15px;
    float:right;
 }
+
+
+
+
+
+
+
+
