@@ -7,10 +7,11 @@
     public string userid;
     protected void setuserid(object sender, SqlDataSourceCommandEventArgs e)
     {
-        string userid = Request.Cookies["UserID"].Value;
-        
-        System.Web.UI.WebControls.Parameter idpram = new Parameter("@id", System.Data.DbType.Int32, userid);
-        regitems.SelectParameters.Add(idpram); 
+        //string userid = Request.Cookies["UserID"].Value;
+        //regitems.SelectParameters["UserID"].DefaultValue = "userid";
+
+        //System.Web.UI.WebControls.Parameter idpram = new Parameter("@id", System.Data.DbType.Int32, userid);
+        //regitems.SelectParameters.Add("id",userid);
     }
     protected void removeBtn_Click(object sender, ImageClickEventArgs e)
     {
@@ -102,6 +103,7 @@
             <asp:GridView
                 id="grdItems"
                 DataSourceID="regitems"
+                DataKeyNames = "id"
                 CellPadding="10" 
                 border="0"
                 GridLines="None"
@@ -126,7 +128,7 @@
                 Runat="server"
                 OnSelecting="setuserid">
                 <SelectParameters>
-                    <asp:Parameter  Name="@id" Type="Int16" DefaultValue="0" />
+                    <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
                 </SelectParameters>
             </asp:SqlDataSource>
         
