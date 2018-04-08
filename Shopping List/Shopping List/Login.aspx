@@ -3,17 +3,22 @@
 <!DOCTYPE html>
 
 <script runat="server">
+    public int userid = 0;
+    
 
     protected void loginButton_Click(object sender, EventArgs e)
     {
         System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-        string sqlstmt = "select * from users where username like '"+Uid.Text +"' and password like '"+UPwd.Text+"';";
+        string sqlstmt = "select id from users where username like '"+Uid.Text +"' and password like '"+UPwd.Text+"';";
         System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlstmt, sqlConnStr);
         cmd.Connection.Open();
         System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
 
         if (reader.Read())
         {
+            HttpCookie idcookie = new HttpCookie("UserID");
+            idcookie.Value = reader[0].ToString();
+            Response.Cookies.Add(idcookie);
             Response.Redirect("List.aspx");
         }
         else

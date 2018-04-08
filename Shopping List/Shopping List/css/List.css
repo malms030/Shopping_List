@@ -71,4 +71,34 @@
     height: 40px%;
     float:left;
 }
+.Headertext{
+    color:floralwhite;
+}
+.Textbox {
+    height: 20px;
+    width: 85px;
+    font-size: 10pt;
+    border-radius: 10px;
+    border: solid 1px black;
+    padding: 3px;
+}
+.TextboxLong {
+    height: 20px;
+    width: 300px;
+    font-size: 10pt;
+    border-radius: 10px;
+    border: solid 1px black;
+    padding: 3px;
+}
+#notesbreak{
+    width: 5px;
+}
+#addBtn{
+    width: 30px;
+    height:30px;
+    padding-top: 5px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    
+}
 

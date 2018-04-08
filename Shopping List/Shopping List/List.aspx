@@ -4,6 +4,66 @@
 
 <script runat="server">
 
+    public string userid;
+    protected void setuserid(object sender, SqlDataSourceCommandEventArgs e)
+    {
+        string userid = Request.Cookies["UserID"].Value;
+        
+        System.Web.UI.WebControls.Parameter idpram = new Parameter("@id", System.Data.DbType.Int32, userid);
+        regitems.SelectParameters.Add(idpram); 
+    }
+    protected void removeBtn_Click(object sender, ImageClickEventArgs e)
+    {
+        try
+        {
+            foreach (GridViewRow row in grdItems.Rows)
+            {
+                CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
+                if (chkRow.Checked)
+                {
+                    string userid = Request.Cookies["UserID"].Value;
+                    System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                    string sqlremove = "DELETE FROM list_items WHERE id = @id AND item_name LIKE '%@name%';";
+                    System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlremove, sqlConnStr);
+                    cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                    cmd.Parameters["@id"].Value = userid;
+                    cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar, 100);
+                    cmd.Parameters["@name"].Value = row.Cells[1].Text;
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Connection.Close();
+
+                }
+            }
+        }
+        catch(System.Data.SqlClient.SqlException ex)
+        {
+
+        }
+    }
+    protected void addBtn_Click(object sender, ImageClickEventArgs e)
+    {
+        System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+        string sqlinsert = "insert into list_items (id, item_name, qty, store, dept, description) values (@id,@item, @qty, @store, @dept, @notes)";
+        System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+        cmd.Parameters.Add("@id", System.Data.SqlDbType.VarChar, 100);
+        cmd.Parameters["@id"].Value =  Response.Cookies["UserID"].Value;
+        cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
+        cmd.Parameters["@item"].Value = item.Text;
+        cmd.Parameters.Add("@qty", System.Data.SqlDbType.Int);
+        cmd.Parameters["@qty"].Value = qty.Text;
+        cmd.Parameters.Add("@store", System.Data.SqlDbType.VarChar, 100);
+        cmd.Parameters["@store"].Value = store.Text;
+        cmd.Parameters.Add("@dept", System.Data.SqlDbType.VarChar, 50);
+        cmd.Parameters["@dept"].Value = dept.Text;
+        cmd.Parameters.Add("@notes", System.Data.SqlDbType.VarChar, 500);
+        cmd.Parameters["@notes"].Value = notes.Text;
+        cmd.Connection.Open();
+        cmd.ExecuteNonQuery();
+        Response.Redirect("List.aspx");
+        cmd.Connection.Close();
+    }
+
     protected void settingsBtn_Click(object sender, ImageClickEventArgs e)
     {
 
@@ -22,7 +82,6 @@
            <asp:ImageButton ID="settingsBtn" ImageUrl="Images/settings.png" OnClick="settingsBtn_Click" runat="server" />
             <asp:ImageButton ID="userBtn" ImageUrl="Images/usericon.png" OnClick="settingsBtn_Click" runat="server" />
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
-
             <br />
            <br />
 
@@ -39,9 +98,50 @@
             <asp:label runat="server" ID="labellistitems"/>
             <b id="itemsTitle">My Shopping List</b>
             <br />
+            <br />
+            <asp:GridView
+                id="grdItems"
+                DataSourceID="regitems"
+                CellPadding="10" 
+                border="0"
+                GridLines="None"
+                Runat="server">
+                <EditRowStyle BackColor="brown" />
+                <HeaderStyle BackColor="SaddleBrown" />
+                <HeaderStyle CssClass="Headertext" />
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkRow" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>     
+             </Columns>
+               
+            </asp:GridView>
+            
+            <asp:SqlDataSource
+                id="regitems"
+                ConnectionString="<%$ ConnectionStrings:team05 %>"
+                SelectCommand="SELECT item_name as Item, qty as QTY, store as Store, dept AS Dept, description as Notes from list_items where id = @id"
+                Runat="server"
+                OnSelecting="setuserid">
+                <SelectParameters>
+                    <asp:Parameter  Name="@id" Type="Int16" DefaultValue="0" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+        
+            <div id="add">
+                <asp:TextBox runat="server" ID="item" placeholder="Item"  CssClass="Textbox" />
+                <asp:TextBox runat="server" ID="qty" placeholder="Quantity" CssClass="Textbox" />
+                <asp:TextBox runat="server" ID="store" placeholder="Store" CssClass="Textbox" />
+                <asp:TextBox runat="server" ID="dept" placeholder="Department" CssClass="Textbox" />
+                <asp:TextBox runat="server" ID="notes" placeholder="Notes" CssClass="TextboxLong" />
+                <asp:ImageButton ID="addBtn" ImageUrl="Images/add.png" OnClick="addBtn_Click" runat="server" />
+            </div>
+
         </div>
         <br />
-        <br />
+        <br id="notesbreak" />
         <div id="options">
             <asp:LinkButton runat="server" ID="signoutButton" Text="Sign Out" PostBackURL="Login.aspx" />
         </div>

@@ -1,7 +1,8 @@
 ﻿DROP TABLE users;
 
 CREATE TABLE users(
-username VARCHAR(50) PRIMARY KEY,
+ID INT IDENTITY(1,1) PRIMARY KEY,
+username VARCHAR(50) ,
 firstname VARCHAR(50),
 lastname VARCHAR(50),
 email VARCHAR(50) NOT NULL,
