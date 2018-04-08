@@ -45,10 +45,9 @@
     protected void addBtn_Click(object sender, ImageClickEventArgs e)
     {
         System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-        string sqlinsert = "insert into list_items (id, item_name, qty, store, dept, description) values (@id,@item, @qty, @store, @dept, @notes)";
+        string sqlinsert = "insert into list_items (id, item_name, qty, store, dept, description) values (@id, @item, @qty, @store, @dept, @notes)";
         System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
-        cmd.Parameters.Add("@id", System.Data.SqlDbType.VarChar, 100);
-        cmd.Parameters["@id"].Value =  Response.Cookies["UserID"].Value;
+        cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
         cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
         cmd.Parameters["@item"].Value = item.Text;
         cmd.Parameters.Add("@qty", System.Data.SqlDbType.Int);
@@ -103,7 +102,6 @@
             <asp:GridView
                 id="grdItems"
                 DataSourceID="regitems"
-                DataKeyNames = "id"
                 CellPadding="10" 
                 border="0"
                 GridLines="None"
