@@ -99,6 +99,15 @@
     padding-top: 5px;
     padding-bottom: 0px;
     padding-left: 10px;
-    
 }
-
+#gotit {
+    background-color: saddlebrown;
+    color: white;
+    padding: 5px 5px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    font-size: 15px;
+   float:right;
+}

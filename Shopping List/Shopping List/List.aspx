@@ -5,15 +5,8 @@
 <script runat="server">
 
     public string userid;
-    protected void setuserid(object sender, SqlDataSourceCommandEventArgs e)
-    {
-        //string userid = Request.Cookies["UserID"].Value;
-        //regitems.SelectParameters["UserID"].DefaultValue = "userid";
 
-        //System.Web.UI.WebControls.Parameter idpram = new Parameter("@id", System.Data.DbType.Int32, userid);
-        //regitems.SelectParameters.Add("id",userid);
-    }
-    protected void removeBtn_Click(object sender, ImageClickEventArgs e)
+    protected void removeBtn_Click(object sender, EventArgs e)
     {
         try
         {
@@ -33,6 +26,7 @@
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
+                    Response.Redirect("List.aspx");
 
                 }
             }
@@ -44,24 +38,40 @@
     }
     protected void addBtn_Click(object sender, ImageClickEventArgs e)
     {
-        System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-        string sqlinsert = "insert into list_items (id, item_name, qty, store, dept, description) values (@id, @item, @qty, @store, @dept, @notes)";
-        System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
-        cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
-        cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
-        cmd.Parameters["@item"].Value = item.Text;
-        cmd.Parameters.Add("@qty", System.Data.SqlDbType.Int);
-        cmd.Parameters["@qty"].Value = qty.Text;
-        cmd.Parameters.Add("@store", System.Data.SqlDbType.VarChar, 100);
-        cmd.Parameters["@store"].Value = store.Text;
-        cmd.Parameters.Add("@dept", System.Data.SqlDbType.VarChar, 50);
-        cmd.Parameters["@dept"].Value = dept.Text;
-        cmd.Parameters.Add("@notes", System.Data.SqlDbType.VarChar, 500);
-        cmd.Parameters["@notes"].Value = notes.Text;
-        cmd.Connection.Open();
-        cmd.ExecuteNonQuery();
-        Response.Redirect("List.aspx");
-        cmd.Connection.Close();
+        try
+        {
+            if ((item.Text == "") || (qty.Text == ""))
+            {
+                item.BorderColor = System.Drawing.Color.Red;
+                qty.BorderColor = System.Drawing.Color.Red;
+            }
+            else
+            {
+                System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                string sqlinsert = "insert into list_items (id, item_name, qty, store, dept, description) values (@id, @item, @qty, @store, @dept, @notes)";
+                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+                cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
+                cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
+                cmd.Parameters["@item"].Value = item.Text;
+                cmd.Parameters.Add("@qty", System.Data.SqlDbType.Int);
+                cmd.Parameters["@qty"].Value = qty.Text;
+                cmd.Parameters.Add("@store", System.Data.SqlDbType.VarChar, 100);
+                cmd.Parameters["@store"].Value = store.Text;
+                cmd.Parameters.Add("@dept", System.Data.SqlDbType.VarChar, 50);
+                cmd.Parameters["@dept"].Value = dept.Text;
+                cmd.Parameters.Add("@notes", System.Data.SqlDbType.VarChar, 500);
+                cmd.Parameters["@notes"].Value = notes.Text;
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                Response.Redirect("List.aspx");
+                cmd.Connection.Close();
+            }
+        }
+        catch(System.FormatException ex) {
+        item.BorderColor = System.Drawing.Color.Red;
+                qty.BorderColor = System.Drawing.Color.Red;}
+
+
     }
 
     protected void settingsBtn_Click(object sender, ImageClickEventArgs e)
@@ -119,12 +129,13 @@
                
             </asp:GridView>
             
+            <asp:Button runat="server" ID="gotit" OnClick="removeBtn_Click" Text="Got It!" />
+            <br /><br />
             <asp:SqlDataSource
                 id="regitems"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
                 SelectCommand="SELECT item_name as Item, qty as QTY, store as Store, dept AS Dept, description as Notes from list_items where id = @id"
-                Runat="server"
-                OnSelecting="setuserid">
+                Runat="server">
                 <SelectParameters>
                     <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
                 </SelectParameters>
@@ -141,7 +152,7 @@
 
         </div>
         <br />
-        <br id="notesbreak" />
+        <br />
         <div id="options">
             <asp:LinkButton runat="server" ID="signoutButton" Text="Sign Out" PostBackURL="Login.aspx" />
         </div>
