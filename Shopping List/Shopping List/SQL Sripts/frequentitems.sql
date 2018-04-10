@@ -3,6 +3,7 @@
 CREATE TABLE freq_item(
 id INTEGER REFERENCES users,
 item_name VARCHAR(100) NOT NULL,
+description VARCHAR(500),
 last_purchase_date DATE NOT NULL DEFAULT GETDATE());
 
 SELECT * FROM freq_item;

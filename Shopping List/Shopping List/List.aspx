@@ -81,20 +81,29 @@
 
     public void freqaddBtn_Click(object o, EventArgs e)
     {
-        try {
-            System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-            string sqlinsert = "insert into freq_item (id, item_name) values (@id, @item)";
-            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
-            cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
-            cmd.Parameters.AddWithValue("@item", addfreq.Text);
-            cmd.Connection.Open();
-            cmd.ExecuteNonQuery();
-            Response.Redirect("List.aspx");
-            cmd.Connection.Close();
-        }
-        catch(System.FormatException ex)
+        if (addfreq.Text == "")
         {
             addfreq.BorderColor = System.Drawing.Color.Red;
+        }
+        else
+        {
+            try
+            {
+                System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                string sqlinsert = "insert into freq_item (id, item_name, description) values (@id, @item, @description)";
+                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+                cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
+                cmd.Parameters.AddWithValue("@item", addfreq.Text);
+                cmd.Parameters.AddWithValue("@description", freqDesc.Text);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                Response.Redirect("List.aspx");
+                cmd.Connection.Close();
+            }
+            catch (System.FormatException ex)
+            {
+                addfreq.BorderColor = System.Drawing.Color.Red;
+            }
         }
     }
 
@@ -102,6 +111,42 @@
     {
         form1.Visible = false;
         freqitemsform.Visible = true;
+    }
+
+    public void freqItemsRemove(object o, EventArgs e)
+    {
+        try
+        {
+            foreach (GridViewRow row in freqitems.Rows)
+            {
+                CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
+                if (chkRow.Checked)
+                {
+                    string userid = Request.Cookies["UserID"].Value;
+                    System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                    string sqlremove = "DELETE FROM freq_item WHERE id = @id AND item_name = @name;";
+                    System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlremove, sqlConnStr);
+                    cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                    cmd.Parameters["@id"].Value = userid;
+                    cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar, 100);
+                    cmd.Parameters["@name"].Value = row.Cells[1].Text;
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Connection.Close();
+                    Response.Redirect("List.aspx");
+
+                }
+            }
+        }
+        catch(System.Data.SqlClient.SqlException ex)
+        {
+
+        }
+    }
+
+    public void freqItemsUpdate(object o, EventArgs e)
+    {
+
     }
 
 </script>
@@ -128,6 +173,7 @@
             <asp:label runat="server" ID="labelfreqitems"/>
             <b id="freqitemsTitle">Frequent Items</b>
             <br />
+            <br />
              <asp:GridView
                 id="freqitems"
                 DataSourceID="freq_items_source"
@@ -149,16 +195,30 @@
             <asp:SqlDataSource
                 id="freq_items_source"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
-                SelectCommand="SELECT item_name as Item, CONVERT(VARCHAR(12), last_purchase_date, 107) 'Last Purchased' from freq_item where id = @id"
+                SelectCommand="SELECT item_name as Item, description as Notes, CONVERT(VARCHAR(12), last_purchase_date, 107) 'Last Purchased' from freq_item where id = @id"
                 Runat="server">
                 <SelectParameters>
                     <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
                 </SelectParameters>
             </asp:SqlDataSource>
+            <br \ />
+            <div>
+            <asp:Button ID="freqRemove" Text="Remove" OnClick="freqItemsRemove" runat="server" />
+            <asp:Button ID="freqUpdate" Text="Update" OnClick="freqItemsUpdate" runat="server" />
+            </div>
+            <br \ />
+            <div id ="freqitemsalign">
             <asp:TextBox runat="server" ID="addfreq" placeholder="Frequent Item" CssClass="Textbox" />
-                <asp:ImageButton ID="freqplus" ImageUrl="Images/add.png" OnClick="freqaddBtn_Click" runat="server" />
+            <asp:TextBox runat="server" ID="freqDesc" placeholder="Notes" CssClass="TextboxLong2" />
+            <asp:ImageButton ID="freqplus" ImageUrl="Images/add.png" OnClick="freqaddBtn_Click" runat="server" />
+            <br \ />
+            </div>
+            <div id ="align_adjust">
             <asp:Button runat="server" ID="addfromlist" OnClick="show_list" Text="Add from Recent Items" />
-            
+            </div>
+            <br \ />
+            <br \ />
+
         </div>
         <br/>
         <div id="list_items">
@@ -181,7 +241,7 @@
                         <ItemTemplate>
                             <asp:CheckBox ID="chkRow" runat="server" />
                         </ItemTemplate>
-                    </asp:TemplateField>     
+                    </asp:TemplateField>
              </Columns>
                
             </asp:GridView>

@@ -73,6 +73,7 @@
     border-radius: 10px;
     border: solid 1px black;
     padding: 3px;
+    display:inline;
 }
 .TextboxLong {
     height: 20px;
@@ -82,17 +83,25 @@
     border: solid 1px black;
     padding: 3px;
 }
-#notesbreak{
-    width: 5px;
+.TextboxLong2 {
+    height: 20px;
+    width: 265px;
+    font-size: 10pt;
+    border-radius: 10px;
+    border: solid 1px black;
+    padding: 3px;
+    display: inline;
 }
-#addBtn, #freqplus {
-    width: 30px;
-    height: 30px;
-    padding-top: 5px;
-    padding-bottom: 0px;
-    padding-left: 10px;
+#addBtn {
+    width: 6%;
+    height:6%;
+    padding-top: 8px;
 }
-#gotit {
+#freqplus {
+    width: 6%;
+    height: 6%;
+}
+#gotit, #freqRemove {
     background-color: saddlebrown;
     color: white;
     padding: 5px 5px;
@@ -102,6 +111,18 @@
     width: 30%;
     font-size: 15px;
     float: right;
+}
+#freqUpdate {
+    background-color: saddlebrown;
+    color: white;
+    padding: 5px 5px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    font-size: 15px;
+    float: right;
+    margin-right: 4px;
 }
 #addfromlist {
     background-color: saddlebrown;
@@ -113,6 +134,17 @@
     width: 45%;
     font-size: 15px;
     float: right;
+    
+}
+#freqitems, #grdItems {
+    text-align: center;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#freqitemsalign{
+    display:inline-block;
+}
+#align_adjust{
+    padding-top: 5px;
 }
 
 
