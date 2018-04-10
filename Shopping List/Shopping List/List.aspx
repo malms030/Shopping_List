@@ -164,7 +164,7 @@
         Response.Redirect("List.aspx");
 
     }
-    public void recentcancel_Click(object 0, EventArgs e)
+    public void recentcancel_Click(object o, EventArgs e)
     {
 
     }
