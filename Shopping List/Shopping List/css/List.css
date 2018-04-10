@@ -3,7 +3,7 @@
     background-repeat:repeat;
     background-size: cover;
 }
-#freqitems {
+#frequentitems {
     width: 400px;
     margin-right: auto;
     margin-left: auto;
@@ -68,7 +68,7 @@
 }
 #userBtn {
     width: 40px;
-    height: 40px%;
+    height: 40px;
     float:left;
 }
 .Headertext{
@@ -93,14 +93,14 @@
 #notesbreak{
     width: 5px;
 }
-#addBtn{
+#addBtn, #freqplus {
     width: 30px;
-    height:30px;
+    height: 30px;
     padding-top: 5px;
     padding-bottom: 0px;
     padding-left: 10px;
 }
-#gotit {
+#gotit, #addfromlist {
     background-color: saddlebrown;
     color: white;
     padding: 5px 5px;
@@ -109,7 +109,7 @@
     cursor: pointer;
     width: 40%;
     font-size: 15px;
-   float:right;
+    float: right;
 }
 
 

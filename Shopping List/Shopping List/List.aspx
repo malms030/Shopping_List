@@ -6,6 +6,11 @@
 
     public string userid;
 
+    public void settingsBtn_Click(object o, EventArgs e)
+    {
+
+    }
+
     protected void removeBtn_Click(object sender, EventArgs e)
     {
         try
@@ -68,16 +73,37 @@
             }
         }
         catch(System.FormatException ex) {
-        item.BorderColor = System.Drawing.Color.Red;
-                qty.BorderColor = System.Drawing.Color.Red;}
+            item.BorderColor = System.Drawing.Color.Red;
+            qty.BorderColor = System.Drawing.Color.Red;}
 
 
     }
 
-    protected void settingsBtn_Click(object sender, ImageClickEventArgs e)
+    public void freqaddBtn_Click(object o, EventArgs e)
     {
-
+        try {
+            System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+            string sqlinsert = "insert into freq_item (id, item_name) values (@id, @item)";
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+            cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
+            cmd.Parameters.AddWithValue("@item", addfreq.Text);
+            cmd.Connection.Open();
+            cmd.ExecuteNonQuery();
+            Response.Redirect("List.aspx");
+            cmd.Connection.Close();
+        }
+        catch(System.FormatException ex)
+        {
+            addfreq.BorderColor = System.Drawing.Color.Red;
+        }
     }
+
+    public void show_list(object o, EventArgs e)
+    {
+        form1.Visible = false;
+        freqitemsform.Visible = true;
+    }
+
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -86,7 +112,7 @@
      <link rel="stylesheet" type="text/css" href="css/List.css"/>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" visible="true" runat="server">
         
        <div id="icons">
            <asp:ImageButton ID="settingsBtn" ImageUrl="Images/settings.png" OnClick="settingsBtn_Click" runat="server" />
@@ -97,11 +123,43 @@
 
        </div>
         
-        <div id="freqitems">
+        <div id="frequentitems">
             
             <asp:label runat="server" ID="labelfreqitems"/>
             <b id="freqitemsTitle">Frequent Items</b>
             <br />
+             <asp:GridView
+                id="freqitems"
+                CellPadding="10" 
+                border="0"
+                GridLines="None"
+                Runat="server">
+                <EditRowStyle BackColor="brown" />
+                <HeaderStyle BackColor="SaddleBrown" />
+                <HeaderStyle CssClass="Headertext" />
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkRow" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>     
+             </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource
+                id="freq_items"
+                ConnectionString="<%$ ConnectionStrings:team05 %>"
+                SelectCommand="SELECT item_name as Item, last_purchase_date as Last Purchased from freq_item where id = @id"
+                Runat="server">
+                <SelectParameters>
+                    <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <br \ />
+            <br \ />
+            <asp:TextBox runat="server" ID="addfreq" placeholder="Frequent Item" CssClass="Textbox" />
+                <asp:ImageButton ID="freqplus" ImageUrl="Images/add.png" OnClick="freqaddBtn_Click" runat="server" />
+            <asp:Button runat="server" ID="addfromlist" OnClick="show_list" Text="Add from Recent Items" />
+            
         </div>
         <br/>
         <div id="list_items">
@@ -159,6 +217,11 @@
             <asp:LinkButton runat="server" ID="signoutButton" Text="Sign Out" PostBackURL="Login.aspx" />
         </div>
             
+    </form>
+
+    <form id="freqitemsform" visible="false" runat="server">
+
+
     </form>
 </body>
 </html>
