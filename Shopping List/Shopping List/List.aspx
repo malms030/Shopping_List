@@ -146,9 +146,9 @@
              </Columns>
             </asp:GridView>
             <asp:SqlDataSource
-                id="freq_items"
+                id="freq_items_source"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
-                SelectCommand="SELECT item_name as Item, last_purchase_date as Last Purchased from freq_item where id = @id"
+                SelectCommand="SELECT item_name as Item, last_purchase_date as 'Last Purchased' from freq_item where id = @id"
                 Runat="server">
                 <SelectParameters>
                     <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
