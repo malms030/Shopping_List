@@ -23,11 +23,19 @@
                     string userid = Request.Cookies["UserID"].Value;
                     System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
                     string sqlremove = "DELETE FROM list_items WHERE id = @id AND item_name = @name;";
+                    string sqladdrecent = "insert into recent_items (id, item_name, description) values (@id, @name, @notes)";
                     System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlremove, sqlConnStr);
+                    System.Data.SqlClient.SqlCommand cmd2 = new System.Data.SqlClient.SqlCommand(sqladdrecent, sqlConnStr);
                     cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
                     cmd.Parameters["@id"].Value = userid;
                     cmd.Parameters.Add("@name", System.Data.SqlDbType.VarChar, 100);
                     cmd.Parameters["@name"].Value = row.Cells[1].Text;
+                    cmd2.Parameters.AddWithValue("@id",userid);
+                    cmd2.Parameters.AddWithValue("@name", row.Cells[1].Text);
+                    cmd2.Parameters.AddWithValue("@notes", row.Cells[5].Text);
+                    cmd2.Connection.Open();
+                    cmd2.ExecuteNonQuery();
+                    cmd2.Connection.Close();
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
@@ -146,6 +154,14 @@
 
     public void freqItemsUpdate(object o, EventArgs e)
     {
+        System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+        string sqlupdate = "UPDATE freq_item SET last_purchase_date = GETDATE() WHERE id = @id";
+        System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlupdate, sqlConnStr);
+        cmd.Parameters.AddWithValue("@id", Request.Cookies["UserID"].Value);
+        cmd.Connection.Open();
+        cmd.ExecuteNonQuery();
+        cmd.Connection.Close();
+        Response.Redirect("List.aspx");
 
     }
 
@@ -279,8 +295,44 @@
     </form>
 
     <form id="freqitemsform" visible="false" runat="server">
+       <div id="recentitemsbody">
 
-
+           <asp:label runat="server" ID="labelrecent"/>
+            <b id="recentitemsTitle">Add to Frequent Items:</b>
+            <br />
+            <br />
+        <asp:GridView
+                id="recentitems"
+                DataSourceID="recent_items_source"
+                CellPadding="10" 
+                border="0"
+                GridLines="None"
+                Runat="server">
+                <EditRowStyle BackColor="brown" />
+                <HeaderStyle BackColor="SaddleBrown" />
+                <HeaderStyle CssClass="Headertext" />
+                <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:CheckBox ID="chkRow" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>     
+             </Columns>
+            </asp:GridView>
+            <asp:SqlDataSource
+                id="recent_items_source"
+                ConnectionString="<%$ ConnectionStrings:team05 %>"
+                SelectCommand="SELECT item_name as Item, description as Notes, CONVERT(VARCHAR(12), purchased, 107) 'Purchased On' from recent_items where id = @id"
+                Runat="server">
+                <SelectParameters>
+                    <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+           </div>  
+        <br \ />
+        <br\ />
+        <asp:Button runat="server" ID="recentcancel" OnClick="recentcancel_Click" Text="Cancel />
+        <asp:Button runat="server" ID="recentadd" OnClick="recentadd_Click" Text="Add" />
     </form>
 </body>
 </html>

@@ -1,0 +1,5 @@
+﻿CREATE TABLE recent_items(
+id INTEGER REFERENCES users,
+item_name VARCHAR(100)NOT NULL,
+description VARCHAR(500),
+purchased DATE NOT NULL DEFAULT GETDATE());
