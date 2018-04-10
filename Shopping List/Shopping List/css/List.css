@@ -146,8 +146,30 @@
 #align_adjust{
     padding-top: 5px;
 }
-
-
+#recentadd {
+    background-color: saddlebrown;
+    color: white;
+    padding: 5px 5px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+    font-size: 15px;
+    float: none;
+    margin-right:4px;
+}
+#recentcancel {
+    background-color: saddlebrown;
+    color: white;
+    padding: 5px 5px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+    font-size: 15px;
+    float: none;
+    margin-right: 4px;
+}
 
 
 

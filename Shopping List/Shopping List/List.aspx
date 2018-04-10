@@ -336,11 +336,12 @@
                     <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
                 </SelectParameters>
             </asp:SqlDataSource>
+           <asp:Button runat="server"  ID="recentcancel" OnClick="recentcancel_Click" Text="Cancel" />
+           <asp:Button runat="server" ID="recentadd" OnClick="recentadd_Click" Text="Add" />
            </div>  
         <br \ />
         <br\ />
-        <asp:Button runat="server" ID="recentcancel" OnClick="recentcancel_Click" Text="Cancel" />
-        <asp:Button runat="server" ID="recentadd" OnClick="recentadd_Click" Text="Add" />
+
     </form>
 </body>
 </html>
