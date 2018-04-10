@@ -28,14 +28,6 @@
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
-.Textbox {
-    height: 30px;
-    width: 390px;
-    font-size: medium;
-    border-radius: 10px;
-    border: solid 1px black;
-    padding: 5px;
-}
 #error{
     color:red;
 }

@@ -130,6 +130,7 @@
             <br />
              <asp:GridView
                 id="freqitems"
+                DataSourceID="freq_items_source"
                 CellPadding="10" 
                 border="0"
                 GridLines="None"
@@ -148,14 +149,12 @@
             <asp:SqlDataSource
                 id="freq_items_source"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
-                SelectCommand="SELECT item_name as Item, last_purchase_date as 'Last Purchased' from freq_item where id = @id"
+                SelectCommand="SELECT item_name as Item, CONVERT(VARCHAR(12), last_purchase_date, 107) 'Last Purchased' from freq_item where id = @id"
                 Runat="server">
                 <SelectParameters>
                     <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
                 </SelectParameters>
             </asp:SqlDataSource>
-            <br \ />
-            <br \ />
             <asp:TextBox runat="server" ID="addfreq" placeholder="Frequent Item" CssClass="Textbox" />
                 <asp:ImageButton ID="freqplus" ImageUrl="Images/add.png" OnClick="freqaddBtn_Click" runat="server" />
             <asp:Button runat="server" ID="addfromlist" OnClick="show_list" Text="Add from Recent Items" />
