@@ -246,9 +246,8 @@
 <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
 <div class="dropdown">
   <div id="myDropdown2" class="dropdown-content">
-    <a href="#home">Manage Account Info</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
+    <a href="#home">Update User Information</a>
+    <a href="#about">Sign Out</a>
   </div>
 </div>           
 
@@ -256,9 +255,8 @@
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
 <div class="dropdown2">
   <div id="myDropdown" class="dropdown-content">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#contact">Sign Out</a>
+    <a href="#home">Submit Help Request</a>
+    <a href="#about">Prediction On/Off</a>
   </div>
 </div>
 
