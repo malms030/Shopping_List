@@ -208,6 +208,13 @@
     display: inline-block;
 }
 
+.dropdown2 {
+    position: absolute;
+    padding-left: 358px;
+    padding-top: 20px;
+    display: inline-block;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -247,7 +254,7 @@
 
 
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
-<div class="dropdown">
+<div class="dropdown2">
   <div id="myDropdown" class="dropdown-content">
     <a href="#home">Home</a>
     <a href="#about">About</a>
