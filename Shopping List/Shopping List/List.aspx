@@ -258,7 +258,7 @@
   <div id="myDropdown" class="dropdown-content">
     <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#contact">Log Out</a>
+    <a href="#contact">Sign Out</a>
   </div>
 </div>
 
