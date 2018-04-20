@@ -247,6 +247,7 @@
 }
 
 .show {display:block;}
+
 </style>
 </head>
 <body>
@@ -283,10 +284,9 @@
         
 
 
-
-
-
-        <div id="Sorting">
+<div id="container">
+        <button class="accordion" type="button">Sorting</button>
+        <div id="Sorting" class="panel">
             <b id="sortingTitle">Sorting</b>
             <br />
         <table>
@@ -337,8 +337,8 @@
 
 
 
-
-        <div id="frequentitems">
+        <button class="accordion" type="button">Frequent Items</button>
+        <div id="frequentitems" class="panel">
             
             <asp:label runat="server" ID="labelfreqitems"/>
             <b id="freqitemsTitle">Frequent Items</b>
@@ -391,7 +391,8 @@
 
         </div>
         <br/>
-        <div id="list_items">
+        <button class="accordion" type="button">List</button>
+        <div id="list_items" class="panel">
             <asp:label runat="server" ID="labellistitems"/>
             <b id="itemsTitle">My Shopping List</b>
             <br />
@@ -436,6 +437,7 @@
                 <asp:TextBox runat="server" ID="notes" placeholder="Notes" CssClass="TextboxLong" />
                 <asp:ImageButton ID="addBtn" ImageUrl="Images/add.png" OnClick="addBtn_Click" runat="server" />
             </div>
+            </div>
 
         </div>
         <br />
@@ -449,7 +451,7 @@
     </form>
 
     <form id="freqitemsform" visible="false" runat="server">
-       <div id="recentitemsbody">
+        <div id="recentitemsbody">
 
            <asp:label runat="server" ID="labelrecent"/>
             <b id="recentitemsTitle">Add to Frequent Items:</b>
@@ -488,6 +490,24 @@
         <br \ />
         <br\ />
 
+
     </form>
+
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+</script>
 </body>
 </html>
