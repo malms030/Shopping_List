@@ -294,7 +294,7 @@
           <td>
              Sort by:
             <asp:dropdownlist ID="SortList1"
-              runat="server">
+              runat="server" CssClass="ddl">
               <asp:listitem>Item</asp:listitem>
               <asp:listitem>QTY</asp:listitem>
               <asp:listitem Selected="true">Store</asp:listitem>
@@ -310,7 +310,7 @@
           <td>
             Then by:
               <asp:dropdownlist ID="SortList2"
-                runat="server">
+                runat="server" CssClass="ddl">
                 <asp:listitem>Item</asp:listitem>
                 <asp:listitem>QTY</asp:listitem>
                 <asp:listitem>Store</asp:listitem>

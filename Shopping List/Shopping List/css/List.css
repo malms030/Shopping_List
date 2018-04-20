@@ -171,6 +171,26 @@
     margin-right: 4px;
 }
 
+.ddl {
+    border: 1px solid saddlebrown;
+    border-radius: 5px;
+    padding: 5px 5px 5px 5px;
+    background-color: saddlebrown;
+    color: white;
+}
+    
+.ddl listitem:hover {
+    background-color: #FFFAF0;
+    color: black;
+}
+.ddl:hover {
+    background-color: #FFFAF0;
+    color: black;
+}
+    
+
+
+
 
 
 
