@@ -169,6 +169,15 @@
 
     }
 
+    public void SortButton_Click(object o, EventArgs e)
+    {
+        String expression = "";
+
+    expression = SortList1.SelectedValue + "," + SortList2.SelectedValue;
+    grdItems.Sort(expression, SortDirection.Ascending);
+
+  }
+    
 </script>
 <script type="text/javascript">
     function myFunction() {
@@ -193,6 +202,8 @@
             }
         }
     }
+
+
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -262,6 +273,7 @@
 
 
 
+
   
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
             <br />
@@ -269,6 +281,63 @@
 
        </div>
         
+
+
+
+
+
+        <div id="Sorting">
+            <b id="sortingTitle">Sorting</b>
+            <br />
+        <table>
+        <tr>
+          <td>
+             Sort by:
+            <asp:dropdownlist ID="SortList1"
+              runat="server">
+              <asp:listitem>Item</asp:listitem>
+              <asp:listitem>QTY</asp:listitem>
+              <asp:listitem Selected="true">Store</asp:listitem>
+              <asp:listitem>Dept</asp:listitem>
+              <asp:listitem>Notes</asp:listitem>
+            </asp:dropdownlist>
+          </td>
+          <td colspan="2">
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Then by:
+              <asp:dropdownlist ID="SortList2"
+                runat="server">
+                <asp:listitem>Item</asp:listitem>
+                <asp:listitem>QTY</asp:listitem>
+                <asp:listitem>Store</asp:listitem>
+                <asp:listitem Selected="true">Dept</asp:listitem>
+                <asp:listitem>Notes</asp:listitem>
+              </asp:dropdownlist>
+          </td>
+          <td>
+
+          </td>
+        </tr>
+      </table>
+
+      <asp:button id="SortButton"
+        text="Sort"
+        onclick="SortButton_Click" 
+        runat="Server"/>  
+            <br />
+            <br />
+            </div>
+
+
+        <br />
+
+
+
+
         <div id="frequentitems">
             
             <asp:label runat="server" ID="labelfreqitems"/>

@@ -3,7 +3,7 @@
     background-repeat:repeat;
     background-size: cover;
 }
-#frequentitems, #recentitemsbody {
+#frequentitems, #recentitemsbody, #Sorting {
     width: 400px;
     margin-right: auto;
     margin-left: auto;
@@ -22,7 +22,7 @@
     border-radius: 25px;
     padding: 20px;
 }
-#freqitemsTitle, #list_items, #labelrecent {
+#freqitemsTitle, #list_items, #labelrecent, #sortingTitle {
     font-size: 16px;
     font: bold;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -112,7 +112,7 @@
     font-size: 15px;
     float: right;
 }
-#freqUpdate {
+#freqUpdate, #SortButton {
     background-color: saddlebrown;
     color: white;
     padding: 5px 5px;
