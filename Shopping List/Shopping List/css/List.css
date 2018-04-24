@@ -171,6 +171,11 @@
     margin-right: 4px;
 }
 
+.GridHeadertext {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    color: saddlebrown;
+    font: bold;
+}
 .ddl {
     border: 1px solid saddlebrown;
     border-radius: 5px;
@@ -184,31 +189,36 @@
     color: black;
 }
 .ddl:hover {
-    background-color: #FFFAF0;
-    color: black;
+    background-color: saddlebrown;
+    color: white;
 }
 
 .accordion {
-    background-color: saddlebrown;
-    color: white;
+    background-color: #FFFAF0;
+    color: black;
     cursor: pointer;
     padding: 18px;
-    width: 30%;
-    border: 1px solid black;
+    width: 450px;
     outline: none;
     font-size: 15px;
     transition: 0.4s;
+    border: 1px solid #000;
+    border-radius: 25px;
+    padding: 20px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font: bold;
+    font-size:18px;
 }
 
     .active, .accordion:hover {
-        background-color: #FFFAF0;
-        color: black;
+        background-color: saddlebrown;
+        color: white;
     }
 
 .panel {
     padding: 0 18px;
-    display: none;
-    background-color: #FFFAF0;
+    display: block;
+    background-color: saddlebrown;
     overflow: hidden;
 }
 

@@ -6,7 +6,10 @@
 
     public string userid;
 
+    void Page_Load()
+    {
 
+    }
     protected void removeBtn_Click(object sender, EventArgs e)
     {
         try
@@ -35,7 +38,7 @@
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
-                    Response.Redirect("List.aspx");
+                    grdItems.DataBind();
 
                 }
             }
@@ -72,8 +75,9 @@
                 cmd.Parameters["@notes"].Value = notes.Text;
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
-                Response.Redirect("List.aspx");
                 cmd.Connection.Close();
+                grdItems.DataBind();
+
             }
         }
         catch(System.FormatException ex) {
@@ -169,15 +173,15 @@
 
     }
 
-    public void SortButton_Click(object o, EventArgs e)
-    {
-        String expression = "";
+    //public void SortButton_Click(object o, EventArgs e)
+    //{
+    //    String expression = "";
 
-    expression = SortList1.SelectedValue + "," + SortList2.SelectedValue;
-    grdItems.Sort(expression, SortDirection.Ascending);
+    //    expression = SortList1.SelectedValue + "," + SortList2.SelectedValue;
+    //    grdItems.Sort(expression, SortDirection.Ascending);
 
-  }
-    
+    //}
+
 </script>
 <script type="text/javascript">
     function myFunction() {
@@ -202,9 +206,8 @@
             }
         }
     }
-
-
 </script>
+
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -271,22 +274,14 @@
     <a href="#about">Prediction On/Off</a>
   </div>
 </div>
-
-
-
-
-  
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
             <br />
            <br />
-
        </div>
         
-
-
 <div id="container">
-        <button class="accordion" type="button">Sorting</button>
-        <div id="Sorting" class="panel">
+        <%--<button class="accordion" type="button">Sorting</button>--%>
+        <%--<div id="Sorting" class="panel">
             <b id="sortingTitle">Sorting</b>
             <br />
         <table>
@@ -330,20 +325,13 @@
         runat="Server"/>  
             <br />
             <br />
-            </div>
-
-
-        <br />
-
-
-
-        <button class="accordion" type="button">Frequent Items</button>
+            </div>--%>
+        <br/>
+        <asp:HiddenField ID="hf1" Value="1" runat="server"/>
+        <button class="accordion" id="pan1" type="button">Frequent Items</button>
         <div id="frequentitems" class="panel">
             
             <asp:label runat="server" ID="labelfreqitems"/>
-            <b id="freqitemsTitle">Frequent Items</b>
-            <br />
-            <br />
              <asp:GridView
                 id="freqitems"
                 DataSourceID="freq_items_source"
@@ -352,8 +340,7 @@
                 GridLines="None"
                 Runat="server">
                 <EditRowStyle BackColor="brown" />
-                <HeaderStyle BackColor="SaddleBrown" />
-                <HeaderStyle CssClass="Headertext" />
+                <HeaderStyle CssClass="GridHeadertext" />
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
@@ -390,13 +377,12 @@
             <br \ />
 
         </div>
+         <br/>
         <br/>
-        <button class="accordion" type="button">List</button>
+        <asp:HiddenField ID="hf2" Value="1" runat="server"/>
+        <button class="accordion" id="pan2" type="button">My Shopping List</button>
         <div id="list_items" class="panel">
             <asp:label runat="server" ID="labellistitems"/>
-            <b id="itemsTitle">My Shopping List</b>
-            <br />
-            <br />
             <asp:GridView
                 id="grdItems"
                 DataSourceID="regitems"
@@ -405,8 +391,7 @@
                 GridLines="None"
                 Runat="server">
                 <EditRowStyle BackColor="brown" />
-                <HeaderStyle BackColor="SaddleBrown" />
-                <HeaderStyle CssClass="Headertext" />
+                <HeaderStyle CssClass="GridHeadertext" />
                 <Columns>
                     <asp:TemplateField>
                         <ItemTemplate>
@@ -495,18 +480,38 @@
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
-
         for (i = 0; i < acc.length; i++) {
             acc[i].addEventListener("click", function () {
                 this.classList.toggle("active");
                 var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
+                if (panel.style.display === "none") {
                     panel.style.display = "block";
+                    if (i == 0) { document.getElementById('hf1') = "1"; }
+                    if (i == 1) { document.getElementById('hf2') = "1"; }
+                } else {
+                    panel.style.display = "none";
+                    if (i == 0) { document.getElementById('hf1') = "0"; }
+                    if (i == 1) { document.getElementById('hf2') = "0"; }
                 }
             });
         }
 </script>
+<script>
+        if (document.getElementById('hf1') == "0") {
+            var acc = document.getElementsByClassName("accordion");
+            var panel = acc[0].nextElementSibling;
+            panel.style.display = "none";
+            acc[0].classList.toggle("active");
+        }
+        if (document.getElementById('hf2') == "0") {
+            var acc = document.getElementsByClassName("accordion");
+            var panel = acc[1].nextElementSibling;
+            panel.style.display = "none";
+            acc[0].classList.toggle("active");
+        }
+        
+
+ </script>
+
 </body>
 </html>
