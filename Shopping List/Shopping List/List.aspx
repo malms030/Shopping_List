@@ -496,7 +496,7 @@
             });
         }
 </script>
-<%--<script>
+<script>
         if (document.getElementById('hf1') == "0") {
             var acc = document.getElementsByClassName("accordion");
             var panel = acc[0].nextElementSibling;
@@ -511,7 +511,7 @@
         }
         
 
- </script>--%>
+ </script>
 
 </body>
 </html>
