@@ -358,14 +358,7 @@
        </div>
         
 <div id="container">
-        <%--<button class="accordion" type="button">Sorting</button>--%>
-        <%--<div id="Sorting" class="panel">
-            <b id="sortingTitle">Sorting</b>
-            <br />
         
-            <br />
-            </div>--%>
-        <br/>
         <asp:HiddenField ID="hf1" Value="1" runat="server"/>
         <button class="accordion" name="pan1" onclick="pan1_Click" type="button">Frequent Items</button>
         <div id="frequentitems" class="panel">
