@@ -93,32 +93,33 @@
             width: 345px;
         }
 
+        #slTitle {
+            font-size: 28px;
+            font: bold;
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }
+
+        #backButton2 {
+            background-color: saddlebrown;
+            color: white;
+            padding: 14px 14px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 10%;
+            font-size: 15px;
+            text-decoration: none;
+        }
+
+
     </style>
 </head>
 <body>
     
-    <div id="icons">
-
-        <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
-        <div class="dropdown">
-            <div id="myDropdown2" class="dropdown-content" style="left:-40px; top:25px">
-                <asp:LinkButton ID="home" OnClick="usermenu" text="Your Account" runat="server" />
-                <asp:LinkButton ID="about" OnClick="logout" text="Sign Out" runat="server" />
-            </div>
-        </div>
-
-
-        <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
-        <div class="dropdown2">
-            <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
-                <asp:LinkButton ID="help" OnClick="loadhelp" text="Help Request" runat="server" />
-                <asp:LinkButton ID="storeloc" OnClick="storeloc_Click" text="Store Locator" runat="server" />
-            </div>
-        </div>
-        <img src="images/bag.png" alt="Bag" id="loginImage" />
+    <b id="slTitle">Store Locator</b>
         <br />
         <br />
-    </div>
+    
     <span id="errormsg"></span>
 
     <input id="pac-input" class="controls" type="text" placeholder="Search Box">
@@ -226,10 +227,10 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBmsFxrARHuvznalTWmPaZIzbcSYJ736c&libraries=places&callback=initAutocomplete"
             async defer></script>
     <div>
-        <a href="List.aspx" style= "text-decoration: none;
-    font-family: Lucida Sans Unicode Lucida Grande, sans-serif;">Back to List</a>
         <br />
-       
+       <a class="button" id="backButton2" href="List.aspx">Back to List</a>
+        <br />
+
     </div>
 </body>
 </html>
