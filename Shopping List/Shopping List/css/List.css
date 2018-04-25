@@ -3,7 +3,7 @@
     background-repeat:repeat;
     background-size: cover;
 }
-#frequentitems, #recentitemsbody, #Sorting {
+#frequentitems, #recentitemsbody, #Sorting, #accountinfo {
     width: 400px;
     margin-right: auto;
     margin-left: auto;

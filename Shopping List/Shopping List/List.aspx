@@ -103,7 +103,7 @@
                 filter(new object(), new EventArgs());
                 SortList1.DataBind();
                 SortList2.DataBind();
-                
+
 
             }
         }
@@ -168,11 +168,11 @@
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
-                    
+
 
                 }
             }
-        Response.Redirect("List.aspx");}
+            Response.Redirect("List.aspx");}
         catch(System.Data.SqlClient.SqlException ex)
         {
 
@@ -217,9 +217,10 @@
 
                 }
             }
-        Response.Redirect("List.aspx");}
+            Response.Redirect("List.aspx");}
         catch (System.Data.SqlClient.SqlException ex)
         {
+
 
         }
     }
@@ -255,6 +256,24 @@
     public void ClearSortButton_Click(object o, EventArgs e)
     {
         Response.Redirect("List.aspx");
+    }
+    public void usermenu(object o, EventArgs e)
+    {
+        form1.Visible = false;
+        accountinfo.Visible = true;
+    }
+    public void logout(object o, EventArgs e)
+    {
+        Response.Redirect("Login.aspx");
+    }
+    public void loadhelp(object o, EventArgs e)
+    {
+        Response.Redirect("Help.aspx");
+    }
+    public void storeloc_Click(object o, EventArgs e)
+    {
+        form1.Visible = false;
+        storelocator.Visible = true;
     }
 
 </script>
@@ -339,8 +358,13 @@
 <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
 <div class="dropdown">
   <div id="myDropdown2" class="dropdown-content" style="left:-40px; top:25px">
+<<<<<<< HEAD
     <a href="#home">Update User Information</a>
     <a href="Login.aspx">Sign Out</a>
+=======
+    <asp:LinkButton ID="home" OnClick="usermenu" text="Your Account" runat="server" />
+    <asp:LinkButton ID="about" OnClick="logout" text="Sign Out" runat="server" />
+>>>>>>> fc8ba92a9a136a102fc70a2f7ce00bacceca4cd2
   </div>
 </div>           
 
@@ -348,8 +372,13 @@
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
 <div class="dropdown2">
   <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
+<<<<<<< HEAD
     <a href="submitRequest.aspx">Submit Help Request</a>
     <a href="storeLocator.html">Store Locator</a>
+=======
+    <asp:LinkButton ID="help" OnClick="loadhelp" text="Help Request" runat="server" />
+    <asp:LinkButton ID="storeloc" OnClick="storeloc_Click" text="Store Locator" runat="server" />
+>>>>>>> fc8ba92a9a136a102fc70a2f7ce00bacceca4cd2
   </div>
 </div>
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
@@ -527,9 +556,121 @@
            </div>  
         <br \ />
         <br\ />
+    </form>
+
+    <form id="accountinfo" runat="server" visible="false">
+        <asp:Label ID="accountwelcome" Text="Your Account Information" runat="server" />
 
 
     </form>
+
+    <form id="storelocator" runat="server" visible="false">
+    <span id="errormsg"></span>
+
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box"/>
+    <div id="map"></div>
+
+    </form>
+    <script>
+        // This example adds a search box to a map, using the Google Place Autocomplete
+        // feature. People can enter geographical searches. The search box will return a
+        // pick list containing a mix of places and predicted search terms.
+
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        var lat = 46.786671;
+        var long = -92.100487;
+
+        function initAutocomplete() {
+            var lat = 46.786671;
+            var long = -92.100487;
+
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: lat, lng: long },
+                zoom: 13,
+                mapTypeId: 'roadmap'
+            });
+
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    map.setCenter(pos);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
+
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function (place) {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+                    var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+
+                    // Create a marker for each place.
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    }));
+
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
+        }
+
+    </script>
     <script>
         var acc = document.getElementsByClassName("accordion");
         var i;
@@ -545,24 +686,6 @@
             });
         }
 </script>
-<script>
-    //var hfs = getElementById("hf1");
-        //alert(hfs);
-        //if (document.getElementById('hf1').style.to == "0") {
-        //    var acc = document.getElementsByClassName("accordion");
-        //    var panel = acc[0].nextElementSibling;
-        //    panel.style.display = "none";
-        //    acc[0].classList.toggle("active");
-        //}
-        //if (HttpContext.Current.Request.Cookies["hf2"].Value == "0") {
-            //var acc = document.getElementsByClassName("accordion");
-            //var panel = acc[1].nextElementSibling;
-            //panel.style.display = "none";
-            //acc[1].classList.toggle("active");
-        //}
-        
-
- </script>
 
 </body>
 </html>

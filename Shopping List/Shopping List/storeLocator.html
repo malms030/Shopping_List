@@ -97,11 +97,27 @@
 </head>
 <body>
     
-    
     <div id="icons">
-        <img ID="settingsBtn" src="Images/settings.png" OnClick="settingsBtn_Click"  />
-        <img ID="userBtn" src="Images/usericon.png" OnClick="settingsBtn_Click"  />
-        <img src="Images/bag.png" style="width:80px;" />
+
+        <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
+        <div class="dropdown">
+            <div id="myDropdown2" class="dropdown-content" style="left:-40px; top:25px">
+                <asp:LinkButton ID="home" OnClick="usermenu" text="Your Account" runat="server" />
+                <asp:LinkButton ID="about" OnClick="logout" text="Sign Out" runat="server" />
+            </div>
+        </div>
+
+
+        <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
+        <div class="dropdown2">
+            <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
+                <asp:LinkButton ID="help" OnClick="loadhelp" text="Help Request" runat="server" />
+                <asp:LinkButton ID="storeloc" OnClick="storeloc_Click" text="Store Locator" runat="server" />
+            </div>
+        </div>
+        <img src="images/bag.png" alt="Bag" id="loginImage" />
+        <br />
+        <br />
     </div>
     <span id="errormsg"></span>
 
