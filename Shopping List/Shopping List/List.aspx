@@ -188,25 +188,23 @@
     }
     public void recentadd_Click(object o, EventArgs e)
     {
-        //try
-       // {
-            foreach (GridViewRow row in freqitems.Rows)
+        try
+        {
+            foreach (GridViewRow row in recentitems.Rows)
             {
                 CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
                 if (chkRow.Checked)
                 {
                     string userid = Request.Cookies["UserID"].Value;
                     System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-                    string sqlqry = "insert into freq_item (id, item_name, description, last_purchase_date) values (@id, '@item', '@notes', '@date'";
+                    string sqlqry = "insert into freq_item (id, item_name, description, last_purchase_date) values (@id, '@item', '@notes', ''";
                     System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlqry, sqlConnStr);
                     cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
                     cmd.Parameters["@id"].Value = userid;
                     cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
-                    cmd.Parameters["@item"].Value = row.Cells[0].Text;
+                    cmd.Parameters["@item"].Value = row.Cells[1].Text;
                     cmd.Parameters.Add("@notes", System.Data.SqlDbType.VarChar, 500);
-                    cmd.Parameters["@notes"].Value = row.Cells[1].Text;
-                    cmd.Parameters.Add("@date", System.Data.SqlDbType.Date);
-                    cmd.Parameters["@date"].Value = row.Cells[2].Text;
+                    cmd.Parameters["@notes"].Value = row.Cells[2].Text;
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
@@ -215,11 +213,11 @@
                 }
             }
         }
-        //catch(System.Data.SqlClient.SqlException ex)
-        //{
+        catch (System.Data.SqlClient.SqlException ex)
+        {
 
-        //}
-    //}
+        }
+    }
     public void pan1_Click(object o, EventArgs e)
     {
         if(Request.Cookies["hf1"].Value == "0") {  Request.Cookies["hf1"].Value = "1"; }
