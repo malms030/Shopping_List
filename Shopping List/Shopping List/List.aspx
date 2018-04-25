@@ -324,6 +324,8 @@
 
 .dropdown a:hover {background-color: #FFFAF0; color: black;
 }
+.dropdown2 a:hover {background-color: #FFFAF0; color: black;
+}
 
 .show {display:block;}
 
@@ -336,7 +338,7 @@
  
 <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
 <div class="dropdown">
-  <div id="myDropdown2" class="dropdown-content">
+  <div id="myDropdown2" class="dropdown-content" style="left:-40px; top:25px">
     <a href="#home">Update User Information</a>
     <a href="#about">Sign Out</a>
   </div>
@@ -345,7 +347,7 @@
 
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
 <div class="dropdown2">
-  <div id="myDropdown" class="dropdown-content">
+  <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
     <a href="#home">Submit Help Request</a>
     <a href="#about">Prediction On/Off</a>
   </div>
