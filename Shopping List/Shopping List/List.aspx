@@ -340,7 +340,7 @@
 <div class="dropdown">
   <div id="myDropdown2" class="dropdown-content" style="left:-40px; top:25px">
     <a href="#home">Update User Information</a>
-    <a href="#about">Sign Out</a>
+    <a href="Login.aspx">Sign Out</a>
   </div>
 </div>           
 
@@ -348,8 +348,8 @@
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
 <div class="dropdown2">
   <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
-    <a href="#home">Submit Help Request</a>
-    <a href="#about">Prediction On/Off</a>
+    <a href="submitRequest.aspx">Submit Help Request</a>
+    <a href="storeLocator.html">Store Locator</a>
   </div>
 </div>
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
@@ -485,11 +485,6 @@
         </div>
         <br />
         <br />
-        <div id="options">
-            <a href="storeLocator.html" style="text-decoration: none; font-family: Lucida Sans Unicode Lucida Grande, sans-serif;" >Store Locator</a>
-            <br />
-            <asp:LinkButton runat="server" ID="signoutButton" Text="Sign Out" PostBackURL="Login.aspx" />
-        </div>
             
     </form>
 

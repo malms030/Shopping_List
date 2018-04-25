@@ -14,7 +14,7 @@ table, th, td {
     border: 1px solid black;
 }
 
-#spanSubject, #spanContent, #spanPwd2, #spanFname, #spanLname, #spanEmail {
+#spanSubject, #spanContent, .content, .subject {
     font-weight: bold;
     font-size: 18px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
