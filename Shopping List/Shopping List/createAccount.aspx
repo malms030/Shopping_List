@@ -7,7 +7,7 @@
     {
         try
         {
-            if (createUPwd.Text == confirmPWD.Text)
+            if (createUPwd.Text == confirmPWD.Text && email.Text.Contains("@"))
             {
                 System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
                 string sqlinsert = "insert into users(username, firstname, lastname, email,password) values (@uid, @fname, @lname, @email, @pwd)";
@@ -31,7 +31,8 @@
             {
                 createUPwd.BorderColor = System.Drawing.Color.Red;
                 confirmPWD.BorderColor = System.Drawing.Color.Red;
-                error2.Text = "Passwords do not match";
+                email.BorderColor = System.Drawing.Color.Red;
+                error2.Text = "Passwords must match -- Email must be vailid";
             }
         }
         catch (System.Data.SqlClient.SqlException ex){

@@ -94,7 +94,16 @@
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
-                Response.Redirect("List.aspx");
+                item.Text = "";
+                qty.Text = "";
+                store.Text = "";
+                dept.Text = "";
+                notes.Text = "";
+                grdItems.DataBind();
+                filter(new object(), new EventArgs());
+                SortList1.DataBind();
+                SortList2.DataBind();
+                
 
             }
         }
@@ -159,11 +168,11 @@
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
-                    Response.Redirect("List.aspx");
+                    
 
                 }
             }
-        }
+        Response.Redirect("List.aspx");}
         catch(System.Data.SqlClient.SqlException ex)
         {
 
@@ -205,11 +214,10 @@
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
-                    Response.Redirect("List.aspx");
 
                 }
             }
-        }
+        Response.Redirect("List.aspx");}
         catch (System.Data.SqlClient.SqlException ex)
         {
 
@@ -226,14 +234,27 @@
         else { Request.Cookies["hf2"].Value = "0"; }
         Response.Redirect("Login.aspx");
     }
-
-    public void SortButton_Click(object o, EventArgs e)
+    public void filter(object o, EventArgs e)
     {
-        String expression = "";
-
-        expression = SortList1.SelectedValue + "," + SortList2.SelectedValue;
-        grdItems.Sort(expression, SortDirection.Ascending);
-
+        if(!(SortList1.Text == "") && !(SortList2.Text == ""))
+        {
+            regitems.SelectCommand = "SELECT item_name as Item, qty as QTY, store as Store, dept AS Dept, description as Notes from list_items where store ='"+SortList1.Text+"' and dept ='"+SortList2.Text+"' and id=@id;";
+            grdItems.DataBind();
+        }
+        else if(!(SortList1.Text == "") && SortList2.Text == "")
+        {
+            regitems.SelectCommand = "SELECT item_name as Item, qty as QTY, store as Store, dept AS Dept, description as Notes from list_items where store ='"+SortList1.Text+"'and id=@id;";
+            grdItems.DataBind();
+        }
+        else if(SortList1.Text=="" && !(SortList2.Text == ""))
+        {
+            regitems.SelectCommand = "SELECT item_name as Item, qty as QTY, store as Store, dept AS Dept, description as Notes from list_items where dept ='"+SortList2.Text+"'and id=@id;";
+            grdItems.DataBind();
+        }
+    }
+    public void ClearSortButton_Click(object o, EventArgs e)
+    {
+        Response.Redirect("List.aspx");
     }
 
 </script>
@@ -401,10 +422,10 @@
             <asp:label runat="server" ID="labellistitems"/>
             <div id="sortmenues">
              <asp:Label ID ="filterlabel" Text="Filter:" runat="server" />
-            <asp:dropdownlist ID="SortList1" runat="server" DataSourceID="SqlDataSourcedd1" DataTextField="Store"  DataValueField="store" CssClass="ddl"/>
-            <asp:dropdownlist ID="SortList2" runat="server" DataSourceID="SqlDataSourcedd2" DataTextField="Dept" DataValueField="dept" CssClass="ddl"/>
-            <asp:button id="ClearSortButton" text="Clear" onclick="SortButton_Click" runat="server"/> 
-            <asp:button id="SortButton" text="Sort" onclick="SortButton_Click" runat="server"/>
+            <asp:dropdownlist ID="SortList1" runat="server" DataSourceID="SqlDataSourcedd1" DataTextField="Store"  DataValueField="store" OnSelectedIndexChanged="filter" CssClass="ddl"/>
+            <asp:dropdownlist ID="SortList2" runat="server" DataSourceID="SqlDataSourcedd2" DataTextField="Dept" DataValueField="dept" OnSelectedIndexChanged="filter" CssClass="ddl"/>
+            <asp:button id="ClearSortButton" text="Clear" onclick="ClearSortButton_Click" runat="server"/> 
+            <asp:button id="SortButton" text="Sort" onclick="filter" runat="server"/>
             
                 </div>
             <asp:GridView
