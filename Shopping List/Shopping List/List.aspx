@@ -22,6 +22,7 @@
             str.Replace("'", "\"");
             Page.ClientScript.RegisterStartupScript(this.GetType(), "Script", str, false);
         }
+
     }
     protected void tryclose(object o, EventArgs e)
     {
@@ -56,11 +57,11 @@
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
                     grdItems.DataBind();
-                    Response.Redirect("List.aspx");
+                    
 
                 }
-            }
-        }
+          }
+        Response.Redirect("List.aspx");  }
         catch(System.Data.SqlClient.SqlException ex)
         {
 
@@ -103,7 +104,6 @@
                 filter(new object(), new EventArgs());
                 SortList1.DataBind();
                 SortList2.DataBind();
-
 
             }
         }
@@ -259,8 +259,7 @@
     }
     public void usermenu(object o, EventArgs e)
     {
-        form1.Visible = false;
-        accountinfo.Visible = true;
+        Response.Redirect("upadteAccount.aspx");
     }
     public void logout(object o, EventArgs e)
     {
@@ -435,8 +434,12 @@
             <asp:label runat="server" ID="labellistitems"/>
             <div id="sortmenues">
              <asp:Label ID ="filterlabel" Text="Filter:" runat="server" />
-            <asp:dropdownlist ID="SortList1" runat="server" DataSourceID="SqlDataSourcedd1" DataTextField="Store"  DataValueField="store" OnSelectedIndexChanged="filter" CssClass="ddl"/>
-            <asp:dropdownlist ID="SortList2" runat="server" DataSourceID="SqlDataSourcedd2" DataTextField="Dept" DataValueField="dept" OnSelectedIndexChanged="filter" CssClass="ddl"/>
+            <asp:dropdownlist ID="SortList1" runat="server" DataSourceID="SqlDataSourcedd1" DataTextField="Store"  DataValueField="store" OnSelectedIndexChanged="filter" CssClass="ddl">
+                <asp:ListItem Enabled="true" Selected="True" Text=""></asp:ListItem>
+            </asp:dropdownlist>
+            <asp:dropdownlist ID="SortList2" runat="server" DataSourceID="SqlDataSourcedd2" DataTextField="Dept" DataValueField="dept" OnSelectedIndexChanged="filter" CssClass="ddl">
+                 <asp:ListItem Enabled="true" Selected="True" Text=""></asp:ListItem>
+            </asp:dropdownlist>
             <asp:button id="ClearSortButton" text="Clear" onclick="ClearSortButton_Click" runat="server"/> 
             <asp:button id="SortButton" text="Sort" onclick="filter" runat="server"/>
             
@@ -462,6 +465,7 @@
             
             <asp:Button runat="server" ID="gotit" OnClick="removeBtn_Click" Text="Got It!" />
             <br /><br />
+            <br />
             <asp:SqlDataSource
                 id="regitems"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
@@ -545,12 +549,6 @@
            </div>  
         <br \ />
         <br\ />
-    </form>
-
-    <form id="accountinfo" runat="server" visible="false">
-        <asp:Label ID="accountwelcome" Text="Your Account Information" runat="server" />
-
-
     </form>
 
     <form id="storelocator" runat="server" visible="false">
