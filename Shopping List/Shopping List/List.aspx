@@ -227,14 +227,14 @@
         Response.Redirect("Login.aspx");
     }
 
-    //public void SortButton_Click(object o, EventArgs e)
-    //{
-    //    String expression = "";
+    public void SortButton_Click(object o, EventArgs e)
+    {
+        String expression = "";
 
-    //    expression = SortList1.SelectedValue + "," + SortList2.SelectedValue;
-    //    grdItems.Sort(expression, SortDirection.Ascending);
+        expression = SortList1.SelectedValue + "," + SortList2.SelectedValue;
+        grdItems.Sort(expression, SortDirection.Ascending);
 
-    //}
+    }
 
 </script>
 <script type="text/javascript">
@@ -339,53 +339,14 @@
         <%--<div id="Sorting" class="panel">
             <b id="sortingTitle">Sorting</b>
             <br />
-        <table>
-        <tr>
-          <td>
-             Sort by:
-            <asp:dropdownlist ID="SortList1"
-              runat="server" CssClass="ddl">
-              <asp:listitem>Item</asp:listitem>
-              <asp:listitem>QTY</asp:listitem>
-              <asp:listitem Selected="true">Store</asp:listitem>
-              <asp:listitem>Dept</asp:listitem>
-              <asp:listitem>Notes</asp:listitem>
-            </asp:dropdownlist>
-          </td>
-          <td colspan="2">
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Then by:
-              <asp:dropdownlist ID="SortList2"
-                runat="server" CssClass="ddl">
-                <asp:listitem>Item</asp:listitem>
-                <asp:listitem>QTY</asp:listitem>
-                <asp:listitem>Store</asp:listitem>
-                <asp:listitem Selected="true">Dept</asp:listitem>
-                <asp:listitem>Notes</asp:listitem>
-              </asp:dropdownlist>
-          </td>
-          <td>
-
-          </td>
-        </tr>
-      </table>
-
-      <asp:button id="SortButton"
-        text="Sort"
-        onclick="SortButton_Click" 
-        runat="Server"/>  
-            <br />
+        
             <br />
             </div>--%>
         <br/>
         <asp:HiddenField ID="hf1" Value="1" runat="server"/>
         <button class="accordion" name="pan1" onclick="pan1_Click" type="button">Frequent Items</button>
         <div id="frequentitems" class="panel">
-            
+            <br />
             <asp:label runat="server" ID="labelfreqitems"/>
              <asp:GridView
                 id="freqitems"
@@ -438,6 +399,14 @@
         <button class="accordion" id="pan2" onclick="pan2_Click" type="button">My Shopping List</button>
         <div id="list_items" class="panel">
             <asp:label runat="server" ID="labellistitems"/>
+            <div id="sortmenues">
+             <asp:Label ID ="filterlabel" Text="Filter:" runat="server" />
+            <asp:dropdownlist ID="SortList1" runat="server" DataSourceID="SqlDataSourcedd1" DataTextField="Store"  DataValueField="store" CssClass="ddl"/>
+            <asp:dropdownlist ID="SortList2" runat="server" DataSourceID="SqlDataSourcedd2" DataTextField="Dept" DataValueField="dept" CssClass="ddl"/>
+            <asp:button id="ClearSortButton" text="Clear" onclick="SortButton_Click" runat="server"/> 
+            <asp:button id="SortButton" text="Sort" onclick="SortButton_Click" runat="server"/>
+            
+                </div>
             <asp:GridView
                 id="grdItems"
                 DataSourceID="regitems"
@@ -463,6 +432,24 @@
                 id="regitems"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
                 SelectCommand="SELECT item_name as Item, qty as QTY, store as Store, dept AS Dept, description as Notes from list_items where id = @id"
+                Runat="server">
+                <SelectParameters>
+                    <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <asp:SqlDataSource
+                id="SqlDataSourcedd1"
+                ConnectionString="<%$ ConnectionStrings:team05 %>"
+                SelectCommand="SELECT DISTINCT store FROM list_items WHERE id =@id;"
+                Runat="server">
+                <SelectParameters>
+                    <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />
+                </SelectParameters>
+            </asp:SqlDataSource>
+            <asp:SqlDataSource
+                id="SqlDataSourcedd2"
+                ConnectionString="<%$ ConnectionStrings:team05 %>"
+                SelectCommand="SELECT DISTINCT dept FROM list_items WHERE id =@id;"
                 Runat="server">
                 <SelectParameters>
                     <asp:CookieParameter CookieName="UserID" Name="id" Type="String" />

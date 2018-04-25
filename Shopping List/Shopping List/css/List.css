@@ -112,7 +112,18 @@
     font-size: 15px;
     float: right;
 }
-#freqUpdate, #SortButton {
+#SortButton, #ClearSortButton {
+    background-color: saddlebrown;
+    color: white;
+    padding: 5px ;
+    border: none;
+    cursor: pointer;
+    width: 20%;
+    font-size: 15px;
+    margin-left:5px;
+    float:right;
+}
+#freqUpdate {
     background-color: saddlebrown;
     color: white;
     padding: 5px 5px;
@@ -177,13 +188,21 @@
     font: bold;
 }
 .ddl {
+    float:left;
     border: 1px solid saddlebrown;
     border-radius: 5px;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 5px;
+    width: auto;
     background-color: saddlebrown;
     color: white;
+    margin-left:5px;
 }
-    
+#filterlabel {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 16px;
+    float:left;
+    padding-top:5px;
+}
 .ddl listitem:hover {
     background-color: #FFFAF0;
     color: black;
