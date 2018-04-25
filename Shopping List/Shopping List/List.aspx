@@ -197,14 +197,11 @@
                 {
                     string userid = Request.Cookies["UserID"].Value;
                     System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-                    string sqlqry = "insert into freq_item (id, item_name, description, last_purchase_date) values (@id, '@item', '@notes', ''";
+                    string sqlqry = "insert into freq_item (id, item_name, description) values (@id, @item, @notes);";
                     System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlqry, sqlConnStr);
-                    cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
-                    cmd.Parameters["@id"].Value = userid;
-                    cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
-                    cmd.Parameters["@item"].Value = row.Cells[1].Text;
-                    cmd.Parameters.Add("@notes", System.Data.SqlDbType.VarChar, 500);
-                    cmd.Parameters["@notes"].Value = row.Cells[2].Text;
+                    cmd.Parameters.AddWithValue("@id", userid);
+                    cmd.Parameters.AddWithValue("@item", row.Cells[1].Text);
+                    cmd.Parameters.AddWithValue("@notes", row.Cells[2].Text);
                     cmd.Connection.Open();
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
