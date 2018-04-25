@@ -17,8 +17,14 @@
         if (reader.Read())
         {
             HttpCookie idcookie = new HttpCookie("UserID");
+            HttpCookie hf1cookie = new HttpCookie("hf1");
+            HttpCookie hf2cookie = new HttpCookie("hf2");
             idcookie.Value = reader[0].ToString();
+            hf1cookie.Value = "1";
+            hf2cookie.Value = "1";
             Response.Cookies.Add(idcookie);
+            Response.Cookies.Add(hf1cookie);
+            Response.Cookies.Add(hf2cookie);
             Response.Redirect("List.aspx");
         }
         else

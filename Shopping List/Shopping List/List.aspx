@@ -8,6 +8,23 @@
 
     void Page_Load()
     {
+        if (Request.Cookies["hf1"].Value == "0")
+        {
+            string str = "<script>" + "var acc = document.getElementsByClassName('accordion'); " + "var panel = acc[0].nextElementSibling;"
+                + "panel.style.display = 'none';"+"acc[0].classList.toggle('active');"+"<"+"/script>";
+            str.Replace("'", "\"");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script", str, false);
+        }
+        else if (Request.Cookies["hf2"].Value == "0")
+        {
+            string str = "<script>" + "var acc = document.getElementsByClassName('accordion'); " + "var panel = acc[1].nextElementSibling;"
+                + "panel.style.display = 'none';"+"acc[1].classList.toggle('active');"+"<"+"/script>";
+            str.Replace("'", "\"");
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script", str, false);
+        }
+    }
+    protected void tryclose(object o, EventArgs e)
+    {
 
     }
     protected void removeBtn_Click(object sender, EventArgs e)
@@ -39,6 +56,7 @@
                     cmd.ExecuteNonQuery();
                     cmd.Connection.Close();
                     grdItems.DataBind();
+                    Response.Redirect("List.aspx");
 
                 }
             }
@@ -76,7 +94,7 @@
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
                 cmd.Connection.Close();
-                grdItems.DataBind();
+                Response.Redirect("List.aspx");
 
             }
         }
@@ -166,11 +184,52 @@
     }
     public void recentcancel_Click(object o, EventArgs e)
     {
-
+        Response.Redirect("List.aspx");
     }
     public void recentadd_Click(object o, EventArgs e)
     {
+        //try
+       // {
+            foreach (GridViewRow row in freqitems.Rows)
+            {
+                CheckBox chkRow = (row.Cells[0].FindControl("chkRow") as CheckBox);
+                if (chkRow.Checked)
+                {
+                    string userid = Request.Cookies["UserID"].Value;
+                    System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                    string sqlqry = "insert into freq_item (id, item_name, description, last_purchase_date) values (@id, '@item', '@notes', '@date'";
+                    System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlqry, sqlConnStr);
+                    cmd.Parameters.Add("@id", System.Data.SqlDbType.Int);
+                    cmd.Parameters["@id"].Value = userid;
+                    cmd.Parameters.Add("@item", System.Data.SqlDbType.VarChar, 100);
+                    cmd.Parameters["@item"].Value = row.Cells[0].Text;
+                    cmd.Parameters.Add("@notes", System.Data.SqlDbType.VarChar, 500);
+                    cmd.Parameters["@notes"].Value = row.Cells[1].Text;
+                    cmd.Parameters.Add("@date", System.Data.SqlDbType.Date);
+                    cmd.Parameters["@date"].Value = row.Cells[2].Text;
+                    cmd.Connection.Open();
+                    cmd.ExecuteNonQuery();
+                    cmd.Connection.Close();
+                    Response.Redirect("List.aspx");
 
+                }
+            }
+        }
+        //catch(System.Data.SqlClient.SqlException ex)
+        //{
+
+        //}
+    //}
+    public void pan1_Click(object o, EventArgs e)
+    {
+        if(Request.Cookies["hf1"].Value == "0") {  Request.Cookies["hf1"].Value = "1"; }
+        else { Request.Cookies["hf1"].Value = "0"; }
+    }
+    public void pan2_Click(object o, EventArgs e)
+    {
+        if(Request.Cookies["hf2"].Value == "0") {  Request.Cookies["hf2"].Value = "1"; }
+        else { Request.Cookies["hf2"].Value = "0"; }
+        Response.Redirect("Login.aspx");
     }
 
     //public void SortButton_Click(object o, EventArgs e)
@@ -206,6 +265,7 @@
             }
         }
     }
+    
 </script>
 
 
@@ -328,7 +388,7 @@
             </div>--%>
         <br/>
         <asp:HiddenField ID="hf1" Value="1" runat="server"/>
-        <button class="accordion" id="pan1" type="button">Frequent Items</button>
+        <button class="accordion" name="pan1" onclick="pan1_Click" type="button">Frequent Items</button>
         <div id="frequentitems" class="panel">
             
             <asp:label runat="server" ID="labelfreqitems"/>
@@ -379,8 +439,8 @@
         </div>
          <br/>
         <br/>
-        <asp:HiddenField ID="hf2" Value="1" runat="server"/>
-        <button class="accordion" id="pan2" type="button">My Shopping List</button>
+        <asp:HiddenField ID="hf2" Value="1"  runat="server"/>
+        <button class="accordion" id="pan2" onclick="pan2_Click" type="button">My Shopping List</button>
         <div id="list_items" class="panel">
             <asp:label runat="server" ID="labellistitems"/>
             <asp:GridView
@@ -486,29 +546,27 @@
                 var panel = this.nextElementSibling;
                 if (panel.style.display === "none") {
                     panel.style.display = "block";
-                    if (i == 0) { document.getElementById('hf1') = "1"; }
-                    if (i == 1) { document.getElementById('hf2') = "1"; }
                 } else {
                     panel.style.display = "none";
-                    if (i == 0) { document.getElementById('hf1') = "0"; }
-                    if (i == 1) { document.getElementById('hf2') = "0"; }
                 }
             });
         }
 </script>
 <script>
-        if (document.getElementById('hf1') == "0") {
-            var acc = document.getElementsByClassName("accordion");
-            var panel = acc[0].nextElementSibling;
-            panel.style.display = "none";
-            acc[0].classList.toggle("active");
-        }
-        if (document.getElementById('hf2') == "0") {
-            var acc = document.getElementsByClassName("accordion");
-            var panel = acc[1].nextElementSibling;
-            panel.style.display = "none";
-            acc[0].classList.toggle("active");
-        }
+    //var hfs = getElementById("hf1");
+        //alert(hfs);
+        //if (document.getElementById('hf1').style.to == "0") {
+        //    var acc = document.getElementsByClassName("accordion");
+        //    var panel = acc[0].nextElementSibling;
+        //    panel.style.display = "none";
+        //    acc[0].classList.toggle("active");
+        //}
+        //if (HttpContext.Current.Request.Cookies["hf2"].Value == "0") {
+            //var acc = document.getElementsByClassName("accordion");
+            //var panel = acc[1].nextElementSibling;
+            //panel.style.display = "none";
+            //acc[1].classList.toggle("active");
+        //}
         
 
  </script>
