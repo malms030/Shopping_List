@@ -358,13 +358,10 @@
 <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
 <div class="dropdown">
   <div id="myDropdown2" class="dropdown-content" style="left:-40px; top:25px">
-<<<<<<< HEAD
     <a href="#home">Update User Information</a>
     <a href="Login.aspx">Sign Out</a>
-=======
     <asp:LinkButton ID="home" OnClick="usermenu" text="Your Account" runat="server" />
     <asp:LinkButton ID="about" OnClick="logout" text="Sign Out" runat="server" />
->>>>>>> fc8ba92a9a136a102fc70a2f7ce00bacceca4cd2
   </div>
 </div>           
 
@@ -372,13 +369,10 @@
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
 <div class="dropdown2">
   <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
-<<<<<<< HEAD
     <a href="submitRequest.aspx">Submit Help Request</a>
     <a href="storeLocator.html">Store Locator</a>
-=======
     <asp:LinkButton ID="help" OnClick="loadhelp" text="Help Request" runat="server" />
     <asp:LinkButton ID="storeloc" OnClick="storeloc_Click" text="Store Locator" runat="server" />
->>>>>>> fc8ba92a9a136a102fc70a2f7ce00bacceca4cd2
   </div>
 </div>
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
