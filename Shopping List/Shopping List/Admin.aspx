@@ -13,6 +13,11 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <div id="icons">
+            <img src="images/bag.png" alt="Bag" id="loginImage"/>
+            <br />
+            <br />
+        </div>
         <div>
         </div>
     </form>
