@@ -13,10 +13,21 @@
 table, th, td {
     border: 1px solid black;
 }
+#type {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 14px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px;
+    border: solid 1px black;
+}
 
-#spanSubject, #spanContent, .content, .subject {
+#spanSubject, #spanContent, #spanemail, #spanphone {
     font-weight: bold;
     font-size: 18px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+.content, .subject {
+    font-size: 14px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
@@ -44,7 +55,7 @@ form {
     display: block;
 }
 
-#reqSubmitButton, #createButton {
+#reqSubmitButton, #createButton, #cancel {
     background-color: saddlebrown;
     color: white;
     padding: 14px 14px;

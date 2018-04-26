@@ -7,8 +7,12 @@
     {
 
     }
+     public void cancel_Click (object sender, EventArgs e)
+    {
+        Response.Redirect("Login.aspx");
+    }
 </script>
-<script type="text/javascript">
+<%--<script type="text/javascript">
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
     }
@@ -30,15 +34,15 @@
                 }
             }
         }
-    }
+    }--%>
 
-</script>
+<%--</script>--%>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Shopping List Submit a Help Request</title>
      <link rel="stylesheet" type="text/css" href="css/submitRequest.css"/>
      <link rel="stylesheet" type="text/css" href="css/List.css"/>
-    <style>
+    <%--<style>
         .dropdown {
     position: relative;
     display: inline-block;
@@ -75,11 +79,11 @@
 
 .show {display:block;}
 
-    </style>
+    </style>--%>
 </head>
 <body>
 
-     <div id="icons">
+    <%-- <div id="icons">
  
 <img id="userBtn" src="Images/usericon.png" class="dropbtn" onclick="myFunction2()" />
 <div class="dropdown">
@@ -100,7 +104,7 @@
            <img src="images/bag.png" alt="Bag" id="loginImage"/>
             <br />
            <br />
-       </div>
+       </div>--%>
 
 
     <div id="requestDiv">
@@ -108,21 +112,32 @@
     <form id="form1" runat="server">
         <asp:label runat="server" ID="labelLogin">
            <br />
-            <span id="spanSubject">Subject</span>
+            <span id="spanSubject">Select an Issue Type</span>
             <br />
-            <asp:TextBox runat="server" ID="Subject" placeholder="Request Subject" required="required" CssClass="subject" />
+            <asp:DropDownList ID="type" runat="server">
+                <asp:ListItem Text="Applicatin Behavior" Value="1"></asp:ListItem>
+                <asp:ListItem Text="User Account" Value="2"></asp:ListItem>
+            </asp:DropDownList>
             <br />
             <br />
-            <span id="spanContent">Request</span>
+            <span id="spanemail">Email</span>
+            <br />
+            <asp:TextBox runat="server" ID="emailBox" placeholder="Email where we can reach you" required="required" CssClass="subject" />
+            <br />
+            <br />
+            <span id="spanphone">Phone Number</span>
+            <br />
+            <asp:TextBox runat="server" ID="TextBox1" placeholder="Optional"  CssClass="subject" />
+            <br />
+            <br />
+            <span id="spanContent">Details</span>
             <br />
             <asp:TextBox runat="server" ID="Content" required="required" textmode="MultiLine" CssClass="content" />
             <br />
-            <asp:Button runat="server" ID="reqSubmitButton" OnClick="submitButton_Click" Text="Submit" />
+            <asp:Button runat="server" ID="reqSubmitButton" OnClick="submitButton_Click" Text="Submit" style="margin-right:8px" />
+            <asp:Button runat="server" ID="cancel" OnClick="cancel_Click" Text="Cancel" />
             <br />
-            <br />
-            <br />
-            <span></span>
-            <asp:LinkButton runat="server" ID="listDirectButton" Text="Back to List" PostBackUrl="List.aspx" />
+
         </asp:label>
     </form>
     </div>
