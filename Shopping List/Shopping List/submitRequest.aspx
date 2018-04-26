@@ -5,9 +5,34 @@
 <script runat="server">
     public void submitButton_Click (object sender, EventArgs e)
     {
+        if (emailBox.Text.Contains("@") && !(emailBox.Text == "") && !(Content.Text == ""))
+        {
+            try
+            {
+                System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+                string sqlinsert = "insert into help_requests (status, type, email, phone_number, details) values (@status, @type, @email, @phone_number, @details);";
+                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+                cmd.Parameters.AddWithValue("@status", "NEW");
+                cmd.Parameters.AddWithValue("@type", type.Text);
+                cmd.Parameters.AddWithValue("@email", emailBox.Text);
+                cmd.Parameters.AddWithValue("@phone_number", TextBox1.Text);
+                cmd.Parameters.AddWithValue("@details", Content.Text);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+                Response.Redirect("Login.aspx");
 
+            }
+            catch (System.Data.SqlClient.SqlException ex)
+            {
+            }
+        }
+        else {
+            emailBox.BorderColor = System.Drawing.Color.Red;
+            Content.BorderColor = System.Drawing.Color.Red;
+        }
     }
-     public void cancel_Click (object sender, EventArgs e)
+    public void cancel_Click (object sender, EventArgs e)
     {
         Response.Redirect("Login.aspx");
     }
@@ -122,7 +147,7 @@
             <br />
             <span id="spanemail">Email</span>
             <br />
-            <asp:TextBox runat="server" ID="emailBox" placeholder="Email where we can reach you" required="required" CssClass="subject" />
+            <asp:TextBox runat="server" ID="emailBox" placeholder="Email where we can reach you"  CssClass="subject" />
             <br />
             <br />
             <span id="spanphone">Phone Number</span>
@@ -132,7 +157,7 @@
             <br />
             <span id="spanContent">Details</span>
             <br />
-            <asp:TextBox runat="server" ID="Content" required="required" textmode="MultiLine" CssClass="content" />
+            <asp:TextBox runat="server" ID="Content"  textmode="MultiLine" CssClass="content" />
             <br />
             <asp:Button runat="server" ID="reqSubmitButton" OnClick="submitButton_Click" Text="Submit" style="margin-right:8px" />
             <asp:Button runat="server" ID="cancel" OnClick="cancel_Click" Text="Cancel" />

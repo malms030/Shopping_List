@@ -70,6 +70,7 @@ form {
 #error, #error2, #errorlogin {
     color: red;
 }
-#createAccountButton, #logInButton {
+#createAccountButton, #logInButton, #helpButton {
     text-decoration: none;
+    color:saddlebrown;
 }

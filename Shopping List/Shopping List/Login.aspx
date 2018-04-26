@@ -77,7 +77,9 @@
             <br />
             <br />
             <span>Not a registered user? </span>
-            <asp:LinkButton runat="server" ID="createAccountButton" Text="Create an Account" PostBackUrl="createAccount.aspx" />
+            <asp:LinkButton runat="server" ID="createAccountButton" Text="Create an Account" PostBackUrl="createAccount.aspx" /><br />
+            <span>Experiencing Problems?</span>
+             <asp:LinkButton runat="server" ID="helpButton" Text="Submit a Help Request" PostBackUrl="submitRequest.aspx" />
         </asp:label>
     </form>
     </div>
