@@ -94,7 +94,7 @@
   <div class="dropdown-content" style="margin-top:70px;">
     <asp:LinkButton ID="about" OnClick="logout" text="Sign Out" runat="server" />
   </div>
-        <b id="adminTitle">Administrator Portal</b>    
+            
         </div>
         <br \ />
             <br \ />
