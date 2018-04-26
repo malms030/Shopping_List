@@ -3,6 +3,28 @@
 <!DOCTYPE html>
 
 <script runat="server">
+    void Page_Load()
+    {
+        try
+        {
+            if (Session.IsNewSession)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else if (Session["isAuthenticatedAdmin"].ToString() == "yes")
+            {
+                form1.Visible = true;
+            }
+            else if (Session["isAuthenticatedAdmin"].ToString() == "no" || Session["isAuthenticatedAdmin"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }catch(System.NullReferenceException ex)
+        {
+            Response.Redirect("Login.aspx");
+        }
+    }
+
     public void logout(object o, EventArgs e)
     {
         Response.Redirect("Login.aspx");
@@ -57,7 +79,7 @@
 </head>
 
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" visible="false" runat="server">
     <div id ="AdminView">
     <div class="dropdown" style="float:right;">
   <img id="userBtn" class="dropbtn"src="Images/usericon.png" />

@@ -6,6 +6,18 @@
 
     void Page_Load()
     {
+         if (Session.IsNewSession)
+        {
+            Response.Redirect("Login.aspx");
+        }
+        else if(Session["isAuthenticated"].ToString() == "yes")
+        {
+            form1.Visible = true;
+        }
+        else if(Session["isAuthenticated"].ToString() == "no" || Session["isAuthenticated"] == null)
+        {
+            Response.Redirect("Login.aspx");
+        }
         if (!(IsPostBack))
         {
             System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
@@ -70,7 +82,7 @@
 <body>
     <div id="createAccDiv">
 
-    <form id="form1" runat="server">
+    <form id="form1" visible="false" runat="server">
         <asp:label runat="server" ID="labelLogin" />
             <b id="loginTitle">Your Account Information</b>
             <br />

@@ -5,7 +5,6 @@
 <script runat="server">
     public int userid = 0;
 
-
     protected void loginButton_Click(object sender, EventArgs e)
     {
         System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
@@ -26,6 +25,7 @@
             Response.Cookies.Add(hf1cookie);
             Response.Cookies.Add(hf2cookie);
             cmd.Connection.Close();
+            Session["isAuthenticatedAdmin"] = "yes";
             Response.Redirect("Admin.aspx");
         }
         else
@@ -51,6 +51,7 @@
                     Response.Cookies.Add(hf1cookie);
                     Response.Cookies.Add(hf2cookie);
                     cmd2.Connection.Close();
+                    Session["isAuthenticated"] = "yes";
                     Response.Redirect("List.aspx");
                 }
                 else

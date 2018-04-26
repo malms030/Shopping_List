@@ -6,21 +6,20 @@
 
     public string userid;
 
+
     void Page_Load()
     {
-        if (Request.Cookies["hf1"].Value == "0")
+         if (Session.IsNewSession)
         {
-            string str = "<script>" + "var acc = document.getElementsByClassName('accordion'); " + "var panel = acc[0].nextElementSibling;"
-                + "panel.style.display = 'none';"+"acc[0].classList.toggle('active');"+"<"+"/script>";
-            str.Replace("'", "\"");
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script", str, false);
+            Response.Redirect("Login.aspx");
         }
-        else if (Request.Cookies["hf2"].Value == "0")
+        else if(Session["isAuthenticated"].ToString() == "yes")
         {
-            string str = "<script>" + "var acc = document.getElementsByClassName('accordion'); " + "var panel = acc[1].nextElementSibling;"
-                + "panel.style.display = 'none';"+"acc[1].classList.toggle('active');"+"<"+"/script>";
-            str.Replace("'", "\"");
-            Page.ClientScript.RegisterStartupScript(this.GetType(), "Script", str, false);
+            form1.Visible = true;
+        }
+        else if(Session["isAuthenticated"].ToString() == "no" || Session["isAuthenticated"] == null)
+        {
+            Response.Redirect("Login.aspx");
         }
 
     }
@@ -263,6 +262,7 @@
     }
     public void logout(object o, EventArgs e)
     {
+        Session["isAuthenticated"] = "no";
         Response.Redirect("Login.aspx");
     }
     public void loadhelp(object o, EventArgs e)
@@ -349,7 +349,7 @@
 </style>
 </head>
 <body>
-    <form id="form1" visible="true" runat="server">
+    <form id="form1" visible="false" runat="server">
         
        <div id="icons">
  
