@@ -10,7 +10,7 @@
         {
             System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
             string userid = Request.Cookies["UserID"].Value;
-            string sqlselect = "Select firstname,lastname,email,username,password from users where id = " + userid + ";";
+            string sqlselect = "Select firstname,lastname,email,password from users where id = " + userid + ";";
             System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlselect, sqlConnStr);
             cmd.Connection.Open();
             System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
@@ -20,7 +20,6 @@
                 fName.Text = reader.GetString(0);
                 lName.Text = reader.GetString(1);
                 email.Text = reader.GetString(2);
-                createUid.Text = reader.GetString(3);
 
             }
             cmd.Connection.Close();
@@ -34,7 +33,7 @@
             if ((createUPwd.Text == confirmPWD.Text) && (email.Text.Contains("@")))
             {
                 System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-                string sqlUpdate = "UPDATE USERS SET users.username = '" + createUid.Text + "', users.firstname= '" + fName.Text + "', users.lastname= '" + lName.Text + "', users.email= '" + email.Text + "', users.password= '" + createUPwd.Text + "' where id=" + Request.Cookies["UserID"].Value + ";";
+                string sqlUpdate = "UPDATE USERS SET users.firstname= '" + fName.Text + "', users.lastname= '" + lName.Text + "', users.email= '" + email.Text + "', users.password= '" + createUPwd.Text + "' where id=" + Request.Cookies["UserID"].Value + ";";
                 System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlUpdate, sqlConnStr);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
@@ -52,8 +51,7 @@
         }
         catch (System.Data.SqlClient.SqlException ex)
         {
-            error.Text = "Username is aready in use :(";
-            createUid.BorderColor = System.Drawing.Color.Red;
+            
         }
 
     }
@@ -87,11 +85,6 @@
             <br />
             <span id="spanEmail">Email</span>
             <asp:TextBox runat="server" ID="email" placeholder="Enter Email" required="required" CssClass="Textbox" />
-            <br />
-            <br />
-            <span id="spanUid">Username</span>
-            <asp:TextBox runat="server" ID="createUid" placeholder="Enter Username" required="required" CssClass="Textbox" />
-            <asp:label runat="server" ID="error" Text=" " />
             <br />
             <br />
             <span id="spanPwd">Password</span>
