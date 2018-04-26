@@ -7,3 +7,12 @@ firstname VARCHAR(50),
 lastname VARCHAR(50),
 email VARCHAR(50) NOT NULL,
 password VARCHAR(50) NOT NULL);
+
+CREATE TABLE admins(
+ID INT IDENTITY(1,1) PRIMARY KEY,
+username VARCHAR(50) ,
+password VARCHAR(50) NOT NULL);
+
+INSERT INTO admins VALUES('jmalms', '56730110jm');
+SELECT * FROM admins;
+SELECT * FROM users;
