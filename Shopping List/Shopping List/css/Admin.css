@@ -3,7 +3,7 @@
     background-repeat: repeat;
     background-size: cover;
 }
-#AdminView {
+#AdminView, #work {
     margin-right: auto;
     margin-left: auto;
     border: 1px solid #000;
@@ -22,4 +22,43 @@
     margin-left: auto;
     margin-right: auto;
     display: block;
+}
+#userBtn{
+    width:50px;
+    float:right;
+}
+#taskbar{
+    
+}
+#helpRequests {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 14px;
+    text-align:center;
+    margin-left:auto;
+    margin-right:auto;
+}
+#grid{
+    text-align:center;
+}
+#rowbtn {
+    background-color: saddlebrown;
+    color: white;
+    padding: 5px 5px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 30%;
+    font-size: 15px;
+    float: right;
+}
+.sortasc  {
+    color:saddlebrown;
+}
+.sortdec a{
+    color:saddlebrown;
+    text-decoration:underline;
+}
+.GridHeadertext a {
+    color: saddlebrown;
+    text-decoration : none;
 }
