@@ -4,34 +4,43 @@
 
 <script runat="server">
 
-    void Page_Load (){
-        //System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-        //string sqlselect = "Select @";
-        //System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
+    void Page_Load()
+    {
+        if (!(IsPostBack))
+        {
+            System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
+            string userid = Request.Cookies["UserID"].Value;
+            string sqlselect = "Select firstname,lastname,email,username,password from users where id = " + userid + ";";
+            System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlselect, sqlConnStr);
+            cmd.Connection.Open();
+            System.Data.SqlClient.SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+
+                fName.Text = reader.GetString(0);
+                lName.Text = reader.GetString(1);
+                email.Text = reader.GetString(2);
+                createUid.Text = reader.GetString(3);
+
+            }
+            cmd.Connection.Close();
+        }
     }
     protected void logInButton_Click(object sender, EventArgs e)
     {
+
         try
         {
-            if (createUPwd.Text == confirmPWD.Text && email.Text.Contains("@"))
+            if ((createUPwd.Text == confirmPWD.Text) && (email.Text.Contains("@")))
             {
                 System.Data.SqlClient.SqlConnection sqlConnStr = new System.Data.SqlClient.SqlConnection(ConfigurationManager.ConnectionStrings["team05"].ConnectionString);
-                string sqlinsert = "insert into users(username, firstname, lastname, email,password) values (@uid, @fname, @lname, @email, @pwd)";
-                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlinsert, sqlConnStr);
-                cmd.Parameters.Add("@uid", System.Data.SqlDbType.VarChar, 50);
-                cmd.Parameters["@uid"].Value = createUid.Text;
-                cmd.Parameters.Add("@pwd", System.Data.SqlDbType.VarChar, 50);
-                cmd.Parameters["@pwd"].Value = confirmPWD.Text;
-                cmd.Parameters.Add("@fname", System.Data.SqlDbType.VarChar, 50);
-                cmd.Parameters["@fname"].Value = fName.Text;
-                cmd.Parameters.Add("@lname", System.Data.SqlDbType.VarChar, 50);
-                cmd.Parameters["@lname"].Value = lName.Text;
-                cmd.Parameters.Add("@email", System.Data.SqlDbType.VarChar, 50);
-                cmd.Parameters["@email"].Value = email.Text;
+                string sqlUpdate = "UPDATE USERS SET users.username = '" + createUid.Text + "', users.firstname= '" + fName.Text + "', users.lastname= '" + lName.Text + "', users.email= '" + email.Text + "', users.password= '" + createUPwd.Text + "' where id=" + Request.Cookies["UserID"].Value + ";";
+                System.Data.SqlClient.SqlCommand cmd = new System.Data.SqlClient.SqlCommand(sqlUpdate, sqlConnStr);
                 cmd.Connection.Open();
                 cmd.ExecuteNonQuery();
-                Response.Redirect("Login.aspx");
                 cmd.Connection.Close();
+                Response.Redirect("Login.aspx");
+
             }
             else
             {
@@ -41,10 +50,17 @@
                 error2.Text = "Passwords must match -- Email must be vailid";
             }
         }
-        catch (System.Data.SqlClient.SqlException ex){
+        catch (System.Data.SqlClient.SqlException ex)
+        {
             error.Text = "Username is aready in use :(";
             createUid.BorderColor = System.Drawing.Color.Red;
         }
+
+    }
+
+    public void cancel_Click(object o, EventArgs e)
+    {
+        Response.Redirect("List.aspx");
     }
 </script>
 
@@ -87,8 +103,8 @@
             <asp:label runat="server" ID="error2" Text=" " />
             <br />
             <br />
-            <asp:Button runat="server" ID="createButton" Text="Update" onClick="logInButton_Click"/>
-            <asp:Button runat="server" ID="cancelButton" Text="Cancel" Style="float:left; margin-right:8px;" />
+            <asp:Button runat="server" ID="createButton" Text="Update" AutoPostback = "false" onClick="logInButton_Click"/>
+            <asp:Button runat="server" ID="cancelButton" Text="Cancel" onClick="cancel_Click" Style="float:left; margin-right:8px;" />
     </form>
     </div>
 

@@ -259,7 +259,7 @@
     }
     public void usermenu(object o, EventArgs e)
     {
-        Response.Redirect("upadteAccount.aspx");
+        Response.Redirect("updateAccount.aspx");
     }
     public void logout(object o, EventArgs e)
     {
