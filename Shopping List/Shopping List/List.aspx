@@ -364,7 +364,7 @@
 
 <img id="settingsBtn" src="Images/settings.png" class="dropbtn" onclick="myFunction()" />
 <div class="dropdown2">
-  <div id="myDropdown" class="dropdown-content" style=" right: -20px; top:40px">
+  <div id="myDropdown" class="dropdown-content" style=" right:-100px; top:40px">
     <asp:LinkButton ID="help" OnClick="loadhelp" text="Help Request" runat="server" />
     <asp:LinkButton ID="storeloc" OnClick="storeloc_Click" text="Store Locator" runat="server" />
   </div>

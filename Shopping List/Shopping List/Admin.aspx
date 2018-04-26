@@ -27,6 +27,7 @@
 
     public void logout(object o, EventArgs e)
     {
+         Session["isAuthenticatedAdmin"] = "no";
         Response.Redirect("Login.aspx");
     }
 </script>
