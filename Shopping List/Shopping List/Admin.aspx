@@ -119,7 +119,7 @@
                 id="requests"
                 ConnectionString="<%$ ConnectionStrings:team05 %>"
                 SelectCommand="SELECT id as ID, status as Status, email as Email, phone_number as Phone#, details as Details, comments as Comments, CONVERT(VARCHAR(12), date_opened, 107) 'Date' from help_requests where status not like 'Closed';"
-                UpdateCommand="Update help_requests set status=@Status, email=@Email, phone_number=@Phone#, details=@Details, comments=@comments;"
+                UpdateCommand="Update help_requests set status=@Status, email=@Email, phone_number=@Phone#, details=@Details, comments=@comments where id=@id;"
                 Runat="server">
             </asp:SqlDataSource>
         </div>
